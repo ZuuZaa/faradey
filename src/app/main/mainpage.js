@@ -1,6 +1,6 @@
 "use client";
 
-import { React, useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
@@ -35,41 +35,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-const MainPage = async () => {
-  let token = "";
-  let session_id = "";
-
-  if (typeof localStorage !== "undefined") {
-    token = localStorage.getItem("jwtToken");
-    session_id = localStorage.getItem("sessionId");
-    if (localStorage.getItem("langId") != null) {
-      lang_id = localStorage.getItem("langId");
-    }
-  }
-
-  const params = new URLSearchParams();
-  params.append("SessionId", session_id);
-  params.append("LanguageID", lang_id);
-  let lang_id = "EN";
-  //const router=useRouter()
+const MainPage = () => {
   const { t, i18n } = useTranslation();
-
-
-
-      const response = await fetch(
-      `http://89.40.2.200:3461/api/home/get-index?${params.toString()}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json, text/plain",
-          "Content-Type": "application/json;charset=UTF-8",
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
-
-    const dataJson = await response.json();
-    const data = await dataJson.output;
 
   const changeLanguage = async (event) => {
     const lng = event.currentTarget.textContent;
@@ -81,9 +48,22 @@ const MainPage = async () => {
     setData(fetchedData);
   };
 
-  
+  let lang_id = "EN";
   async function fetchData() {
+    let token = "";
+    let session_id = "";
+
+    if (typeof localStorage !== "undefined") {
+      token = localStorage.getItem("jwtToken");
+      session_id = localStorage.getItem("sessionId");
+      if (localStorage.getItem("langId") != null) {
+        lang_id = localStorage.getItem("langId");
+      }
+    }
     //changeLanguage(lang_id)
+    const params = new URLSearchParams();
+    params.append("SessionId", session_id);
+    params.append("LanguageID", lang_id);
 
     const response = await fetch(
       `http://89.40.2.200:3461/api/home/get-index?${params.toString()}`,
@@ -98,9 +78,9 @@ const MainPage = async () => {
     );
 
     const data = await response.json();
-    return data?.output;
+    return data.output;
   }
-  //const [data, setData] = useState({});
+  const [data, setData] = useState({});
 
   useEffect(() => {
     // Get all elements with the class name 'lang_btn'
@@ -119,15 +99,15 @@ const MainPage = async () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   async function fetchDataAsync() {
-  //     const fetchedData = await fetchData();
-  //     setData(fetchedData);
-  //     console.log("test data", fetchedData);
-  //     await i18n.changeLanguage(lang_id);
-  //   }
-  //   fetchDataAsync();
-  // }, []);
+  useEffect(() => {
+    async function fetchDataAsync() {
+      const fetchedData = await fetchData();
+      setData(fetchedData);
+      console.log("test data", fetchedData);
+      await i18n.changeLanguage(lang_id);
+    }
+    fetchDataAsync();
+  }, []);
 
   let addFavorite = async (event) => {
     let prodid = event.currentTarget.getAttribute("id");
