@@ -35,7 +35,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-const MainPage = () => {
+const MainPage = async () => {
   let token = "";
   let session_id = "";
 
@@ -46,8 +46,30 @@ const MainPage = () => {
       lang_id = localStorage.getItem("langId");
     }
   }
+
+  const params = new URLSearchParams();
+  params.append("SessionId", session_id);
+  params.append("LanguageID", lang_id);
+  let lang_id = "EN";
   //const router=useRouter()
   const { t, i18n } = useTranslation();
+
+
+
+      const response = await fetch(
+      `http://89.40.2.200:3461/api/home/get-index?${params.toString()}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+
+    const dataJson = await response.json();
+    const data = await dataJson.output;
 
   const changeLanguage = async (event) => {
     const lng = event.currentTarget.textContent;
@@ -59,12 +81,9 @@ const MainPage = () => {
     setData(fetchedData);
   };
 
-  let lang_id = "EN";
+  
   async function fetchData() {
     //changeLanguage(lang_id)
-    const params = new URLSearchParams();
-    params.append("SessionId", session_id);
-    params.append("LanguageID", lang_id);
 
     const response = await fetch(
       `http://89.40.2.200:3461/api/home/get-index?${params.toString()}`,
@@ -81,7 +100,7 @@ const MainPage = () => {
     const data = await response.json();
     return data?.output;
   }
-  const [data, setData] = useState({});
+  //const [data, setData] = useState({});
 
   useEffect(() => {
     // Get all elements with the class name 'lang_btn'
@@ -100,15 +119,15 @@ const MainPage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    async function fetchDataAsync() {
-      const fetchedData = await fetchData();
-      setData(fetchedData);
-      console.log("test data", fetchedData);
-      await i18n.changeLanguage(lang_id);
-    }
-    fetchDataAsync();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchDataAsync() {
+  //     const fetchedData = await fetchData();
+  //     setData(fetchedData);
+  //     console.log("test data", fetchedData);
+  //     await i18n.changeLanguage(lang_id);
+  //   }
+  //   fetchDataAsync();
+  // }, []);
 
   let addFavorite = async (event) => {
     let prodid = event.currentTarget.getAttribute("id");
@@ -1094,7 +1113,10 @@ const MainPage = () => {
 
               {data?.categoryImages?.map((catimg) => {
                 return (
-                  <SwiperSlide className="zoom-img categories-swiper-item text-center" key={catimg.id}>
+                  <SwiperSlide
+                    className="zoom-img categories-swiper-item text-center"
+                    key={catimg.id}
+                  >
                     <Link
                       href={"/category/" + catimg.id}
                       key={catimg.id}
@@ -1128,7 +1150,10 @@ const MainPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mb-8">
               {data?.offers?.map((offer) => {
                 return (
-                  <div className="banner1-wrapper relative zoom-img" key={offer.id}>
+                  <div
+                    className="banner1-wrapper relative zoom-img"
+                    key={offer.id}
+                  >
                     <div className="banner2-image banner-image">
                       <Image
                         src={offer.image}
@@ -1376,7 +1401,10 @@ const MainPage = () => {
                 }
 
                 return (
-                  <SwiperSlide className="zoom-img latest-product-swiper-item mb-12 pb-5 relative" key={product.id}>
+                  <SwiperSlide
+                    className="zoom-img latest-product-swiper-item mb-12 pb-5 relative"
+                    key={product.id}
+                  >
                     <div className="latest-product-swiper-item-img-wrap w-full overflow-hidden relative aspect-square">
                       <Link
                         href={`product/${product.id}`}
@@ -1481,7 +1509,10 @@ const MainPage = () => {
             >
               {data?.brands?.map((brand) => {
                 return (
-                  <SwiperSlide className="zoom-img partners-swiper-item mb-12 p-5 relative" key={brand.id}>
+                  <SwiperSlide
+                    className="zoom-img partners-swiper-item mb-12 p-5 relative"
+                    key={brand.id}
+                  >
                     <Image
                       src={brand.image}
                       width={300}
@@ -1760,7 +1791,10 @@ const MainPage = () => {
                 }
 
                 return (
-                  <SwiperSlide className="zoom-img latest-product-swiper-item mb-12 pb-5 relative" key={product.id}>
+                  <SwiperSlide
+                    className="zoom-img latest-product-swiper-item mb-12 pb-5 relative"
+                    key={product.id}
+                  >
                     <div className="latest-product-swiper-item-img-wrap w-full overflow-hidden relative aspect-square">
                       <Link
                         href={`product/${product.id}`}
