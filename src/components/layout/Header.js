@@ -31,6 +31,8 @@ import MobileHeader from "./MobileHeader";
 import { flatMap } from "../../../public/fonts/fontawesome-free-6.5.1-web/js/v4-shims";
 import { faScaleBalanced } from "@fortawesome/free-solid-svg-icons";
 <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />;
+
+
 export default function Header() {
   const { t, i18n } = useTranslation();
   const changeLanguage = async (event) => {
@@ -44,6 +46,7 @@ export default function Header() {
     setData(fetchedData);
     setData1(fetchedData.header);
   };
+  
 
   let token = "";
   let session_id = "";

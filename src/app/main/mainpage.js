@@ -34,10 +34,15 @@ import {
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { fetchData } from "../_fetch";
+
+
 
 const MainPage = () => {
   const { t, i18n } = useTranslation();
+  let lang_id = "EN";
 
+  
   const changeLanguage = async (event) => {
     const lng = event.currentTarget.textContent;
     await i18n.changeLanguage(lng);
@@ -47,50 +52,18 @@ const MainPage = () => {
     const fetchedData = await fetchData();
     setData(fetchedData);
   };
+  
 
-  let lang_id = "EN";
-  async function fetchData() {
-    let token = "";
-    let session_id = "";
 
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-      session_id = localStorage.getItem("sessionId");
-      if (localStorage.getItem("langId") != null) {
-        lang_id = localStorage.getItem("langId");
-      }
-    }
-    //changeLanguage(lang_id)
-    const params = new URLSearchParams();
-    params.append("SessionId", session_id);
-    params.append("LanguageID", lang_id);
-
-    const response = await fetch(
-      `http://89.40.2.200:3461/api/home/get-index?${params.toString()}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json, text/plain",
-          "Content-Type": "application/json;charset=UTF-8",
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
-
-    const data = await response.json();
-    return data.output;
-  }
   const [data, setData] = useState({});
 
   useEffect(() => {
     // Get all elements with the class name 'lang_btn'
     const langBtns = document.getElementsByClassName("lang_btn");
-
     // Add click event listener to each button
     for (let i = 0; i < langBtns.length; i++) {
       langBtns[i].addEventListener("click", changeLanguage);
     }
-
     // Cleanup function to remove event listeners when the component unmounts
     return () => {
       for (let i = 0; i < langBtns.length; i++) {
@@ -1907,7 +1880,7 @@ const MainPage = () => {
                           src={blog.image}
                           width="300"
                           height="400"
-                          className="blog-swiper-item-img object-cover"
+                          className="blog-swiper-item-img object-cover h-full w-full"
                           alt={blog.title}
                         />
                       </div>
