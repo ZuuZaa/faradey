@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Swal  from 'sweetalert2';
 // Icon
 import { UilTimes  } from '@iconscout/react-unicons'
+import { API_URL } from '@/constants';
 
 
 
@@ -44,7 +45,7 @@ import { UilTimes  } from '@iconscout/react-unicons'
       const params = new URLSearchParams();
       params.append('SessionId', session_id);
       params.append('LanguageID',lang_id);
-        const response=await fetch(`http://89.40.2.200:3461/api/cart/get-index?${params.toString()}`,{
+        const response=await fetch(`${API_URL}/api/cart/get-index?${params.toString()}`,{
           method: "GET",
           headers: {
             'Accept': 'application/json, text/plain',

@@ -34,49 +34,17 @@ import {
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { fetchData } from "../_fetch";
-
-
+import { getMainData } from "../_fetch";
 
 const MainPage = () => {
   const { t, i18n } = useTranslation();
-  let lang_id = "EN";
-
-  
-  const changeLanguage = async (event) => {
-    const lng = event.currentTarget.textContent;
-    await i18n.changeLanguage(lng);
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem("langId", lng);
-    }
-    const fetchedData = await fetchData();
-    setData(fetchedData);
-  };
-  
-
-
   const [data, setData] = useState({});
 
   useEffect(() => {
-    // Get all elements with the class name 'lang_btn'
-    const langBtns = document.getElementsByClassName("lang_btn");
-    // Add click event listener to each button
-    for (let i = 0; i < langBtns.length; i++) {
-      langBtns[i].addEventListener("click", changeLanguage);
-    }
-    // Cleanup function to remove event listeners when the component unmounts
-    return () => {
-      for (let i = 0; i < langBtns.length; i++) {
-        langBtns[i].removeEventListener("click", changeLanguage);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
     async function fetchDataAsync() {
-      const fetchedData = await fetchData();
+      const lang_id = localStorage.getItem("langId") || "EN";
+      const fetchedData = await getMainData();
       setData(fetchedData);
-      console.log("test data", fetchedData);
       await i18n.changeLanguage(lang_id);
     }
     fetchDataAsync();

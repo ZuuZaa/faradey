@@ -1,4 +1,6 @@
-export async function fetchData() {
+import { API_URL } from "@/constants";
+
+export async function getMainData() {
   let token = "";
   let session_id = "";
   let lang_id = "EN";
@@ -16,7 +18,7 @@ export async function fetchData() {
   params.append("LanguageID", lang_id);
 
   const response = await fetch(
-    `http://89.40.2.200:3461/api/home/get-index?${params.toString()}`,
+    `${API_URL}/api/home/get-index?${params.toString()}`,
     {
       method: "GET",
       headers: {
@@ -30,3 +32,5 @@ export async function fetchData() {
   const data = await response.json();
   return data.output;
 }
+
+//export 

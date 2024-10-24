@@ -21,6 +21,7 @@ import {
   faShoppingBag,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
+import { API_URL } from "@/constants";
 
 export default function Footer() {
   const { t, i18n } = useTranslation();
@@ -45,7 +46,7 @@ export default function Footer() {
     const params = new URLSearchParams();
     params.append("LanguageID", lang_id);
     const response = await fetch(
-      `http://89.40.2.200:3461/api/layout/get-footer?${params.toString()}`
+      `${API_URL}/api/layout/get-footer?${params.toString()}`
     );
     const data = await response.json();
     return data.output;

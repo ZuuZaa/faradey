@@ -30,6 +30,7 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import MobileHeader from "./MobileHeader";
 import { flatMap } from "../../../public/fonts/fontawesome-free-6.5.1-web/js/v4-shims";
 import { faScaleBalanced } from "@fortawesome/free-solid-svg-icons";
+import { API_URL } from "@/constants";
 <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />;
 
 
@@ -79,7 +80,7 @@ export default function Header() {
     params.append("SessionId", session_id);
     params.append("LanguageID", lang_id);
     const response = await fetch(
-      `http://89.40.2.200:3461/api/layout/get-header?${params.toString()}`,
+      `${API_URL}/api/layout/get-header?${params.toString()}`,
       {
         method: "GET",
         headers: {
@@ -90,7 +91,8 @@ export default function Header() {
       }
     );
     const data = await response.json();
-    console.log(data);
+    const auth = Boolean(data.output.isLogin);
+    localStorage.setItem("is_authorized", auth);
     return data.output;
   }
 
