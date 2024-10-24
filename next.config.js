@@ -3,7 +3,8 @@ const nextConfig = {
   reactStrictMode: false,
   images: {
     domains: ["faradey.logixvps.cloud"],
+    unoptimized: true,
   },
 };
 
-module.exports = nextConfig
+module.exports = nextConfig;

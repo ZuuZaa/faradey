@@ -39,16 +39,16 @@ import { getMainData } from "../_fetch";
 const MainPage = () => {
   const { t, i18n } = useTranslation();
   const [data, setData] = useState({});
+  const lang_id = localStorage.getItem("langId") || "EN";
 
   useEffect(() => {
     async function fetchDataAsync() {
-      const lang_id = localStorage.getItem("langId") || "EN";
       const fetchedData = await getMainData();
       setData(fetchedData);
       await i18n.changeLanguage(lang_id);
     }
     fetchDataAsync();
-  }, []);
+  }, [lang_id]);
 
   let addFavorite = async (event) => {
     let prodid = event.currentTarget.getAttribute("id");

@@ -9,6 +9,7 @@ import BgIcon from '../../../public/images/testimonial-icon.webp';
 import Vision from '../../../public/images/icons/icons/vision.png';
 import Target from '../../../public/images/icons/icons/target.png';
 import Promise from '../../../public/images/icons/icons/promise.png';
+import { API_URL } from '@/constants';
 
 
 
@@ -16,51 +17,32 @@ import Promise from '../../../public/images/icons/icons/promise.png';
 function About() {
 
     const { t, i18n } = useTranslation();
-      
-    const changeLanguage = async (event) => {
-        const lng=event.currentTarget.textContent
-        console.log(lng)
-        await i18n.changeLanguage(lng);
-        if(typeof localStorage !== 'undefined') {
-            localStorage.setItem("langId",lng)
-        }
-        const fetchedData = await fetchData();
-        setData(fetchedData);
+    const lang_id= localStorage.getItem('langId') || 'EN';
     
-    };
-    let lang_id='EN';
-    
-
     async function fetchData(){
-        if (typeof localStorage !== 'undefined') {
-            if(localStorage.getItem("langId")!=null){
-              lang_id=localStorage.getItem("langId");
-            }
-            
-        }
         const params = new URLSearchParams();
         params.append('LanguageID',lang_id);
 
-        const response = await fetch(`http://89.40.2.200:3461/api/about/get-index?${params.toString()}`);
+        const response = await fetch(`${API_URL}/api/about/get-index?${params.toString()}`);
         const data = await response.json();
         return data.output;
     }
-    useEffect(() => {
-        // Get all elements with the class name 'lang_btn'
-        const langBtns = document.getElementsByClassName('lang_btn');
+    // useEffect(() => {
+    //     // Get all elements with the class name 'lang_btn'
+    //     const langBtns = document.getElementsByClassName('lang_btn');
     
-        // Add click event listener to each button
-        for (let i = 0; i < langBtns.length; i++) {
-          langBtns[i].addEventListener('click', changeLanguage);
-        }
+    //     // Add click event listener to each button
+    //     for (let i = 0; i < langBtns.length; i++) {
+    //       langBtns[i].addEventListener('click', changeLanguage);
+    //     }
     
-        // Cleanup function to remove event listeners when the component unmounts
-        return () => {
-          for (let i = 0; i < langBtns.length; i++) {
-            langBtns[i].removeEventListener('click', changeLanguage);
-          }
-        };
-      }, []);
+    //     // Cleanup function to remove event listeners when the component unmounts
+    //     return () => {
+    //       for (let i = 0; i < langBtns.length; i++) {
+    //         langBtns[i].removeEventListener('click', changeLanguage);
+    //       }
+    //     };
+    //   }, []);
   const [data, setData] = useState({ 
                                     team: [], 
                                     settings: [], 
@@ -80,7 +62,8 @@ function About() {
         }
   
       fetchDataAsync();
-    }, []);
+    }, [lang_id]);
+
       
     const team = data.team; 
     const settings = data.settings;

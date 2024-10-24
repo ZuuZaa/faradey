@@ -12,7 +12,7 @@ export async function getMainData() {
       lang_id = localStorage.getItem("langId");
     }
   }
-  //changeLanguage(lang_id)
+  
   const params = new URLSearchParams();
   params.append("SessionId", session_id);
   params.append("LanguageID", lang_id);
@@ -32,5 +32,3 @@ export async function getMainData() {
   const data = await response.json();
   return data.output;
 }
-
-//export 

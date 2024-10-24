@@ -38,14 +38,9 @@ export default function Header() {
   const { t, i18n } = useTranslation();
   const changeLanguage = async (event) => {
     const lng = event.currentTarget.textContent;
-    console.log(lng);
-    await i18n.changeLanguage(lng);
     if (typeof localStorage !== "undefined") {
       localStorage.setItem("langId", lng);
     }
-    const fetchedData = await getHeader();
-    setData(fetchedData);
-    setData1(fetchedData.header);
   };
   
 
@@ -70,11 +65,9 @@ export default function Header() {
       }
     }
   }
-  let lang_id = "EN";
+  const lang_id = localStorage.getItem("langId") || "EN";
   async function getHeader() {
-    if (localStorage.getItem("langId") != null) {
-      lang_id = localStorage.getItem("langId");
-    }
+
     // const token = localStorage.getItem("jwtToken");
     const params = new URLSearchParams();
     params.append("SessionId", session_id);
@@ -196,7 +189,7 @@ export default function Header() {
       await i18n.changeLanguage(lang_id);
     }
     fetchDataAsync();
-  }, []);
+  }, [lang_id]);
 
   const totalQuantity = data.header.totalQuantity;
   const islogin = data.isLogin;
