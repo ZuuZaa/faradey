@@ -25,24 +25,15 @@ import { API_URL } from "@/constants";
 
 export default function Footer() {
   const { t, i18n } = useTranslation();
-
-  const changeLanguage = async (event) => {
-    const lng = event.currentTarget.textContent;
-    //console.log(lng)
-    await i18n.changeLanguage(lng);
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem("langId", lng);
-    }
-    const fetchedData = await fetchData();
-    setData(fetchedData);
-  };
   let lang_id = "EN";
+  if (
+    typeof localStorage !== "undefined" &&
+    localStorage.getItem("langId") != null
+  ) {
+      lang_id = localStorage.getItem("langId");
+  }
   async function fetchData() {
-    if (typeof localStorage !== "undefined") {
-      if (localStorage.getItem("langId") != null) {
-        lang_id = localStorage.getItem("langId");
-      }
-    }
+
     const params = new URLSearchParams();
     params.append("LanguageID", lang_id);
     const response = await fetch(
@@ -64,7 +55,7 @@ export default function Footer() {
     }
 
     fetchDataAsync();
-  }, []);
+  }, [lang_id]);
   const settings = data.settings;
   // useEffect(() => {
   //     // Get all elements with the class name 'lang_btn'

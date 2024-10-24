@@ -31,8 +31,9 @@ import MobileHeader from "./MobileHeader";
 import { flatMap } from "../../../public/fonts/fontawesome-free-6.5.1-web/js/v4-shims";
 import { faScaleBalanced } from "@fortawesome/free-solid-svg-icons";
 import { API_URL } from "@/constants";
-<FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />;
+import { uuidv4 } from "@/helpers/uuidv4";
 
+<FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />;
 
 export default function Header() {
   const { t, i18n } = useTranslation();
@@ -42,21 +43,16 @@ export default function Header() {
       localStorage.setItem("langId", lng);
     }
   };
-  
 
   let token = "";
   let session_id = "";
+  let lang_id = "EN";
+
   if (typeof localStorage !== "undefined") {
     token = localStorage.getItem("jwtToken");
     session_id = localStorage.getItem("sessionId");
-
-    function uuidv4() {
-      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-        (
-          c ^
-          (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-        ).toString(16)
-      );
+    if (localStorage.getItem("langId") != null) {
+      lang_id = localStorage.getItem("langId");
     }
     if (session_id == null || session_id == "") {
       let value = uuidv4();
@@ -65,9 +61,8 @@ export default function Header() {
       }
     }
   }
-  const lang_id = localStorage.getItem("langId") || "EN";
-  async function getHeader() {
 
+  async function getHeader() {
     // const token = localStorage.getItem("jwtToken");
     const params = new URLSearchParams();
     params.append("SessionId", session_id);
@@ -497,7 +492,10 @@ export default function Header() {
                               .filter((main) => main.folder == 1)
                               .map((main) => {
                                 return (
-                                  <li className="nav-dropdown-item hasdropdown" key={main.id}>
+                                  <li
+                                    className="nav-dropdown-item hasdropdown"
+                                    key={main.id}
+                                  >
                                     <Link
                                       href={"/category/" + main.id}
                                       className="nav-dropdown-link"
@@ -514,7 +512,10 @@ export default function Header() {
                                           )
                                           .map((cat) => {
                                             return (
-                                              <li className="nav-dropdown-item hasdropdown" key={cat.id}>
+                                              <li
+                                                className="nav-dropdown-item hasdropdown"
+                                                key={cat.id}
+                                              >
                                                 <Link
                                                   href={"/category/" + cat.id}
                                                   className="nav-dropdown-link"
@@ -531,7 +532,10 @@ export default function Header() {
                                                         )
                                                         .map((sub) => {
                                                           return (
-                                                            <li className="nav-dropdown-item" key={sub.id}>
+                                                            <li
+                                                              className="nav-dropdown-item"
+                                                              key={sub.id}
+                                                            >
                                                               <Link
                                                                 href={
                                                                   "/category/" +
@@ -558,7 +562,10 @@ export default function Header() {
                                           )
                                           .map((cat) => {
                                             return (
-                                              <li className="nav-dropdown-item" key={cat.id}>
+                                              <li
+                                                className="nav-dropdown-item"
+                                                key={cat.id}
+                                              >
                                                 <Link
                                                   href={"/category/" + cat.id}
                                                   className="nav-dropdown-link"
@@ -577,7 +584,10 @@ export default function Header() {
                               .filter((main) => main.folder == 0)
                               .map((main) => {
                                 return (
-                                  <li className="nav-dropdown-item" key={main.id}>
+                                  <li
+                                    className="nav-dropdown-item"
+                                    key={main.id}
+                                  >
                                     <Link
                                       href={"/category/" + main.id}
                                       className="nav-dropdown-link"

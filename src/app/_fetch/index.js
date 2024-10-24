@@ -12,7 +12,7 @@ export async function getMainData() {
       lang_id = localStorage.getItem("langId");
     }
   }
-  
+
   const params = new URLSearchParams();
   params.append("SessionId", session_id);
   params.append("LanguageID", lang_id);

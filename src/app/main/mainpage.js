@@ -39,7 +39,13 @@ import { getMainData } from "../_fetch";
 const MainPage = () => {
   const { t, i18n } = useTranslation();
   const [data, setData] = useState({});
-  const lang_id = localStorage.getItem("langId") || "EN";
+  let lang_id = "EN";
+  if (
+    typeof localStorage !== "undefined" &&
+    localStorage.getItem("langId") != null
+  ) {
+    lang_id = localStorage.getItem("langId");
+  }
 
   useEffect(() => {
     async function fetchDataAsync() {

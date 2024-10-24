@@ -17,7 +17,13 @@ import { API_URL } from '@/constants';
 function About() {
 
     const { t, i18n } = useTranslation();
-    const lang_id= localStorage.getItem('langId') || 'EN';
+      let lang_id = "EN";
+      if (
+        typeof localStorage !== "undefined" &&
+        localStorage.getItem("langId") != null
+      ) {
+        lang_id = localStorage.getItem("langId");
+      }
     
     async function fetchData(){
         const params = new URLSearchParams();
