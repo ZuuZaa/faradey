@@ -20,6 +20,7 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faScaleBalanced } from "@fortawesome/free-solid-svg-icons";
 import { faScaleUnbalanced } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import noImage from "../../../public/images/not-available.jpg";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -1056,6 +1057,7 @@ const MainPage = () => {
                           src={catimg.image}
                           width={300}
                           height={400}
+                          onError={(e) => (e.target.src = noImage)}
                           className="blog-swiper-item-img object-cover mb-3"
                           alt={catimg.name}
                         />
