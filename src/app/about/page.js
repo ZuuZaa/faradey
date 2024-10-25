@@ -33,22 +33,7 @@ function About() {
         const data = await response.json();
         return data.output;
     }
-    // useEffect(() => {
-    //     // Get all elements with the class name 'lang_btn'
-    //     const langBtns = document.getElementsByClassName('lang_btn');
-    
-    //     // Add click event listener to each button
-    //     for (let i = 0; i < langBtns.length; i++) {
-    //       langBtns[i].addEventListener('click', changeLanguage);
-    //     }
-    
-    //     // Cleanup function to remove event listeners when the component unmounts
-    //     return () => {
-    //       for (let i = 0; i < langBtns.length; i++) {
-    //         langBtns[i].removeEventListener('click', changeLanguage);
-    //       }
-    //     };
-    //   }, []);
+
   const [data, setData] = useState({ 
                                     team: [], 
                                     settings: [], 
