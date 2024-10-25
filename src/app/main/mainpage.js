@@ -1057,7 +1057,8 @@ const MainPage = () => {
                           src={catimg.image}
                           width={300}
                           height={400}
-                          onError={(e) => (e.target.src = noImage)}
+                          onError={(e) => console.error(e.target.src)}
+                          //onError={(e) => (e.target.src = noImage)}
                           className="blog-swiper-item-img object-cover mb-3"
                           alt={catimg.name}
                         />
