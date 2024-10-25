@@ -1052,7 +1052,7 @@ const MainPage = () => {
                     >
                       <div className="category-swiper-item-img-wrap w-full overflow-hidden">
                         {/* <Image src={CategoryImg1} width={300} height={400} className='blog-swiper-item-img object-cover w-full h-full mb-3' alt='Category'/> */}
-                        <img
+                        <Image
                           src={catimg.image}
                           width={300}
                           height={400}
