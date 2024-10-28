@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { UilSearch, UilCalender, UilCommentAltLines,UilArrowRight,UilArrowLeft     } from '@iconscout/react-unicons'
 import Menu from '../menu'
+import { API_URL } from '@/constants';
 
 export default function Account() {
     const { t, i18n } = useTranslation();
@@ -36,16 +37,18 @@ export default function Account() {
             }
             const params = new URLSearchParams();
             params.append('LanguageID',lang_id);
-            let response=await fetch(`http://89.40.2.200:3461/api/profile/get-index?${params.toString()}`,{
-                method: 'GET',
-                dataType: 'json',
+            let response = await fetch(
+              `${API_URL}/api/profile/get-index?${params.toString()}`,
+              {
+                method: "GET",
+                dataType: "json",
                 headers: {
-                    'Accept': 'application/json, text/plain',
-                    'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization': 'Bearer ' + token
+                  Accept: "application/json, text/plain",
+                  "Content-Type": "application/json;charset=UTF-8",
+                  Authorization: "Bearer " + token,
                 },
-            }
-            )
+              }
+            );
              const resp = await response.json();
              status=resp.status
              fav_data=resp.output
@@ -64,15 +67,18 @@ export default function Account() {
                 }
                 console.log(token)
                 console.log(refreshToken)
-                let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
-                    method: 'POST',
-                    dataType: 'json',
+                let response = await fetch(
+                  `${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,
+                  {
+                    method: "POST",
+                    dataType: "json",
                     headers: {
-                        'Accept': 'application/json, text/plain',
-                        'Content-Type': 'application/json;charset=UTF-8',
-                        'Authorization': 'Bearer ' + token
+                      Accept: "application/json, text/plain",
+                      "Content-Type": "application/json;charset=UTF-8",
+                      Authorization: "Bearer " + token,
                     },
-                })
+                  }
+                );
                 console.log(response)
                 const resp = await response.json();
                 
@@ -145,7 +151,7 @@ export default function Account() {
     let handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const res = await fetch("http://89.40.2.200:3461/api/profile/edit-password", {
+          const res = await fetch(`${API_URL}/api/profile/edit-password`, {
             method: "POST",
             headers: {
               'Accept': 'application/json, text/plain',

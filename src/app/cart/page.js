@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { UilTimesCircle  } from '@iconscout/react-unicons'
 import CounterInput from './CounterInput';
 import MethodModal from './Method';
+import { API_URL } from '@/constants';
 
 
 
@@ -43,14 +44,17 @@ import MethodModal from './Method';
         const params = new URLSearchParams();
         params.append('SessionId', session_id);
         params.append('LanguageID',lang_id);
-        const response=await fetch(`http://89.40.2.200:3461/api/cart/get-index?${params.toString()}`,{
-          method: "GET",
-          headers: {
-            'Accept': 'application/json, text/plain',
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': 'Bearer ' + token
-          },
-    });
+        const response = await fetch(
+          `${API_URL}/api/cart/get-index?${params.toString()}`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json, text/plain",
+              "Content-Type": "application/json;charset=UTF-8",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
         const data=await response.json();
         return data.output;
     }
@@ -95,7 +99,7 @@ import MethodModal from './Method';
         //const session_id=localStorage.getItem("sessionId");
         var remove_btn=event.currentTarget;
           try {
-            const res = await fetch("http://89.40.2.200:3461/api/cart/remove-from-cart", {
+            const res = await fetch(`${API_URL}/api/cart/remove-from-cart`, {
               method: "POST",
               headers: {
                 'Accept': 'application/json, text/plain',
@@ -165,18 +169,17 @@ import MethodModal from './Method';
       }
 
       let clearCart=async(event)=>{
-        const res = await fetch("http://89.40.2.200:3461/api/cart/clear-cart", {
-            method: "POST",
-            headers: {
-              'Accept': 'application/json, text/plain',
-              'Content-Type': 'application/json;charset=UTF-8',
-              'Authorization': 'Bearer ' + token
-            },
-            body: JSON.stringify({
-              SessionId:session_id
-    
-            }),
-          });
+        const res = await fetch(`${API_URL}/api/cart/clear-cart`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json, text/plain",
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({
+            SessionId: session_id,
+          }),
+        });
           const resJson = await res.json();
           setData(resJson.output)
           document.getElementById("cart_drop").style.display="none"
@@ -190,15 +193,15 @@ import MethodModal from './Method';
         //satisi bitir
         
         try {
-            const res = await fetch("http://89.40.2.200:3461/api/checkout/checkout", {
+            const res = await fetch(`${API_URL}/api/checkout/checkout`, {
               method: "POST",
               headers: {
-                'Accept': 'application/json, text/plain',
-                'Content-Type': 'application/json;charset=UTF-8',
-                'Authorization': 'Bearer ' + token
+                Accept: "application/json, text/plain",
+                "Content-Type": "application/json;charset=UTF-8",
+                Authorization: "Bearer " + token,
               },
               body: JSON.stringify({
-                ShippingType:0
+                ShippingType: 0,
               }),
             });
             const resJson = await res.json();

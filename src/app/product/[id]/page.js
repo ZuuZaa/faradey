@@ -35,6 +35,7 @@ import { Pagination, Navigation, HashNavigation } from 'swiper/modules';
 import { Tabs, Tab } from '../Tabs';
 import Gallery from '../Gallery'
 import CounterInput from '../CounterInput';
+import { API_URL } from '@/constants';
 
 
 
@@ -67,14 +68,17 @@ async function getHeader(){
   const params = new URLSearchParams();
   params.append('SessionId', session_id);
   params.append('LanguageID',lang_id);
-  const response = await fetch(`http://89.40.2.200:3461/api/layout/get-header?${params.toString()}`,{
+  const response = await fetch(
+    `${API_URL}/api/layout/get-header?${params.toString()}`,
+    {
       method: "GET",
       headers: {
-        'Accept': 'application/json, text/plain',
-        'Content-Type': 'application/json;charset=UTF-8',
-        'Authorization': 'Bearer ' + token
-      }
-  });
+        Accept: "application/json, text/plain",
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
   const data = await response.json();
   return data.output;
 }
@@ -96,14 +100,17 @@ async function getHeader(){
     params.append('SessionId', session_id);
     params.append('LanguageID',lang_id);
     
-      const response=await fetch(`http://89.40.2.200:3461/api/details/get-index?${params.toString()}`,{
-        method: "GET",
-        headers: {
-          'Accept': 'application/json, text/plain',
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Authorization': 'Bearer ' + token
-        },
-    });
+      const response = await fetch(
+        `${API_URL}/api/details/get-index?${params.toString()}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json, text/plain",
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       const data=await response.json();
       return data.output;
     
@@ -121,14 +128,17 @@ async function getHeader(){
     const params = new URLSearchParams();
     params.append('Id',id)
     params.append('LanguageID',lang_id);
-      const response=await fetch(`http://89.40.2.200:3461/api/details/get-desc?${params.toString()}`,{
-        method: "GET",
-        headers: {
-          'Accept': 'application/json, text/plain',
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Authorization': 'Bearer ' + token
-        },
-  });
+      const response = await fetch(
+        `${API_URL}/api/details/get-desc?${params.toString()}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json, text/plain",
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       const data=await response.json();
       return data.output;
     
@@ -219,7 +229,7 @@ async function getHeader(){
         token = localStorage.getItem("jwtToken");
     }
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/favorites/add-favorite", {
+      const res = await fetch(`${API_URL}/api/favorites/add-favorite`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -241,7 +251,7 @@ async function getHeader(){
                 token = localStorage.getItem("jwtToken");
                 refreshToken=localStorage.getItem("refreshToken");
             }
-              let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
+              let response=await fetch(`${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
                   method: 'POST',
                   dataType: 'json',
                   headers: {
@@ -299,7 +309,7 @@ async function getHeader(){
         token = localStorage.getItem("jwtToken");
     }
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/favorites/add-favorite", {
+      const res = await fetch(`${API_URL}/api/favorites/add-favorite`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -321,15 +331,18 @@ async function getHeader(){
                 token = localStorage.getItem("jwtToken");
                 refreshToken=localStorage.getItem("refreshToken");
             }
-              let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
-                  method: 'POST',
-                  dataType: 'json',
+              let response = await fetch(
+                `${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,
+                {
+                  method: "POST",
+                  dataType: "json",
                   headers: {
-                      'Accept': 'application/json, text/plain',
-                      'Content-Type': 'application/json;charset=UTF-8',
-                      'Authorization': 'Bearer ' + token
+                    Accept: "application/json, text/plain",
+                    "Content-Type": "application/json;charset=UTF-8",
+                    Authorization: "Bearer " + token,
                   },
-              })
+                }
+              );
               const resp = await response.json();
               if(resp.status !== 400) 
               {
@@ -380,7 +393,7 @@ async function getHeader(){
     }
     //e.preventDefault();
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/favorites/remove-favorite", {
+      const res = await fetch(`${API_URL}/api/favorites/remove-favorite`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -404,7 +417,7 @@ async function getHeader(){
                 token = localStorage.getItem("jwtToken");
                 refreshToken=localStorage.getItem("refreshToken");
             }
-              let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
+              let response=await fetch(`${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
                   method: 'POST',
                   dataType: 'json',
                   headers: {
@@ -461,7 +474,7 @@ async function getHeader(){
     }
     //e.preventDefault();
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/favorites/remove-favorite", {
+      const res = await fetch(`${API_URL}/api/favorites/remove-favorite`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -485,7 +498,7 @@ async function getHeader(){
                 token = localStorage.getItem("jwtToken");
                 refreshToken=localStorage.getItem("refreshToken");
             }
-              let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
+              let response=await fetch(`${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
                   method: 'POST',
                   dataType: 'json',
                   headers: {
@@ -544,7 +557,7 @@ async function getHeader(){
     }
     const quantity=event.currentTarget.previousSibling.value;
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/add-to-cart", {
+        const res = await fetch(`${API_URL}/api/cart/add-to-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -646,7 +659,7 @@ async function getHeader(){
     }
     const quantity=event.currentTarget.previousSibling.value;
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/add-to-cart", {
+        const res = await fetch(`${API_URL}/api/cart/add-to-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -750,7 +763,7 @@ async function getHeader(){
         session_id=localStorage.getItem("sessionId");
     }
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/remove-from-cart", {
+        const res = await fetch(`${API_URL}/api/cart/remove-from-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -833,7 +846,7 @@ async function getHeader(){
     let quantity=event.currentTarget.parentElement.previousSibling.value;
     quantity++;
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+      const res = await fetch(`${API_URL}/api/cart/update-cart`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -917,7 +930,7 @@ async function getHeader(){
     let quantity=event.currentTarget.parentElement.previousSibling.value;
     quantity++;
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+      const res = await fetch(`${API_URL}/api/cart/update-cart`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -1012,7 +1025,7 @@ async function getHeader(){
     if(quantity>0)
     {
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+        const res = await fetch(`${API_URL}/api/cart/update-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -1074,7 +1087,7 @@ async function getHeader(){
     }
     else{
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/remove-from-cart", {
+        const res = await fetch(`${API_URL}/api/cart/remove-from-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -1162,7 +1175,7 @@ async function getHeader(){
     if(quantity>0)
     {
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+        const res = await fetch(`${API_URL}/api/cart/update-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -1230,7 +1243,7 @@ async function getHeader(){
     }
     else{
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/remove-from-cart", {
+        const res = await fetch(`${API_URL}/api/cart/remove-from-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -1340,7 +1353,7 @@ async function getHeader(){
     }
     let update_button=event.currentTarget;
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+      const res = await fetch(`${API_URL}/api/cart/update-cart`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -1430,7 +1443,7 @@ async function getHeader(){
     }
     let update_button=event.currentTarget;
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+      const res = await fetch(`${API_URL}/api/cart/update-cart`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -1520,7 +1533,7 @@ async function getHeader(){
         session_id=localStorage.getItem("sessionId");
     }
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/compare/add-compare", {
+      const res = await fetch(`${API_URL}/api/compare/add-compare`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -1564,7 +1577,7 @@ async function getHeader(){
         session_id=localStorage.getItem("sessionId");
     }
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/compare/remove-compare", {
+      const res = await fetch(`${API_URL}/api/compare/remove-compare`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -1609,7 +1622,7 @@ async function getHeader(){
   let submitReview = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/details/add-review", {
+      const res = await fetch(`${API_URL}/api/details/add-review`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',

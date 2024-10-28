@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import '../../i18n'
 import Swal  from 'sweetalert2';
+import { API_URL } from '@/constants';
 
 const Modal = ({ isOpen, onClose, email, children }) => {
     
@@ -12,7 +13,7 @@ const Modal = ({ isOpen, onClose, email, children }) => {
       
       e.preventDefault();
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/account/verification", {
+        const res = await fetch(`${API_URL}/api/account/verification`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',

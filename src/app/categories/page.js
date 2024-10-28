@@ -10,6 +10,7 @@ import ProductImg1 from '../../../public/images/products/1.webp';
 import ProductImg2 from '../../../public/images/products/2.webp';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import {UisStar, UisAngleLeft, UisAngleRight} from '@iconscout/react-unicons-solid'
+import { API_URL } from '@/constants';
 
 
 export default function Categories() {
@@ -43,14 +44,17 @@ async function fetchData(){
     const params = new URLSearchParams();
     params.append('SessionId', session_id);
     params.append('LanguageID',lang_id);
-    const response = await fetch(`http://89.40.2.200:3461/api/category/get-all?${params.toString()}`,{
+    const response = await fetch(
+      `${API_URL}/api/category/get-all?${params.toString()}`,
+      {
         method: "GET",
         headers: {
-          'Accept': 'application/json, text/plain',
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Authorization': 'Bearer ' + token
-        }
-    });
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
     const data = await response.json();
     return data.output;
   }

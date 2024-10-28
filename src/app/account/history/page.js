@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { UilSearch, UilCalender, UilCommentAltLines,UilArrowRight,UilArrowLeft     } from '@iconscout/react-unicons'
 import Menu from '../menu'
 import { Card, Typography } from "@material-tailwind/react";
+import { API_URL } from '@/constants';
 
 
     
@@ -40,7 +41,7 @@ export default function History() {
             }
             const params = new URLSearchParams();
             params.append('LanguageID',lang_id);
-            let response=await fetch(`http://89.40.2.200:3461/api/profile/get-myorders?${params.toString()}`,{
+            let response=await fetch(`${API_URL}/api/profile/get-myorders?${params.toString()}`,{
                 method: 'GET',
                 dataType: 'json',
                 headers: {
@@ -68,7 +69,7 @@ export default function History() {
                 }
                 console.log(token)
                 console.log(refreshToken)
-                let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
+                let response=await fetch(`${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
                     method: 'POST',
                     dataType: 'json',
                     headers: {

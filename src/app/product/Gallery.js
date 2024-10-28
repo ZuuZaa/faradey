@@ -1,3 +1,4 @@
+import { API_URL } from '@/constants';
 import React, { useEffect, useState } from 'react'
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -29,7 +30,9 @@ const Gallery = ({prod_id}) => {
       try {
         const params = new URLSearchParams();
         params.append('Id',prod_id)
-        const response = await fetch(`http://89.40.2.200:3461/api/details/get-images?${params.toString()}`);
+        const response = await fetch(
+          `${API_URL}/api/details/get-images?${params.toString()}`
+        );
         if (!response.ok) {
           throw new Error('Failed to fetch images');
         }

@@ -9,6 +9,7 @@ import { UisListUl } from '@iconscout/react-unicons-solid'
 import { Accordion, AccordionHeader, AccordionBody } from "@material-tailwind/react";
 
 import PaginationButtons from '../../../../components/pagination/PaginationButtons';
+import { API_URL } from '@/constants';
 
 
 
@@ -65,7 +66,7 @@ export default function AddProject() {
       params.append('Id',id)
       params.append('LanguageID',lang_id);
       console.log("salamm",params.toString());
-      let response=await fetch(`http://89.40.2.200:3461/api/projects/get-add-project?${params.toString()}`,{
+      let response=await fetch(`${API_URL}/api/projects/get-add-project?${params.toString()}`,{
           method: 'GET',
           dataType: 'json',
           headers: {
@@ -98,7 +99,7 @@ export default function AddProject() {
               token = localStorage.getItem("jwtToken");
               refreshToken=localStorage.getItem("refreshToken");
           }
-          let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
+          let response=await fetch(`${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
               method: 'POST',
               dataType: 'json',
               headers: {
@@ -330,7 +331,7 @@ export default function AddProject() {
         formData.append("Kind",1)
         console.log(formData)
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/projects/post-project", {
+        const res = await fetch(`${API_URL}/api/projects/post-project`, {
           method: "POST",
           headers: {
             'Authorization': 'Bearer ' + token
@@ -396,7 +397,7 @@ export default function AddProject() {
       const min_price=parseFloat(document.getElementById("min_price").value)
       const max_price=parseFloat(document.getElementById("max_price").value)
       try{
-        const res = await fetch(`http://89.40.2.200:3461/api/projects/get-add-project-filter`, {
+        const res = await fetch(`${API_URL}/api/projects/get-add-project-filter`, {
             method: "POST",
             headers: {
               'Accept': 'application/json, text/plain',
@@ -443,7 +444,7 @@ export default function AddProject() {
       const min_price=parseFloat(document.getElementById("min_price").value)
       const max_price=parseFloat(document.getElementById("max_price").value)
       try{
-        const res = await fetch(`http://89.40.2.200:3461/api/projects/get-add-project-search`, {
+        const res = await fetch(`${API_URL}/api/projects/get-add-project-search`, {
             method: "POST",
             headers: {
               'Accept': 'application/json, text/plain',

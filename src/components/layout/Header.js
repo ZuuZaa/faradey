@@ -197,7 +197,7 @@ export default function Header() {
   let logout = async (event) => {
     // const token = localStorage.getItem("jwtToken");
 
-    const response = await fetch("http://89.40.2.200:3461/api/account/logout", {
+    const response = await fetch(`${API_URL}/api/account/logout`, {
       method: "POST",
       headers: {
         Accept: "application/json, text/plain",

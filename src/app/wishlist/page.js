@@ -5,6 +5,7 @@ import '../../i18n'
 import Link from 'next/link';
 import Image from 'next/image';
 import { UilInfo, UilStar, UilHeart, UilComparison,UilTimesCircle  } from '@iconscout/react-unicons'
+import { API_URL } from '@/constants';
 
 
 export default function Wishlist() {
@@ -40,7 +41,7 @@ export default function Wishlist() {
         if (typeof localStorage !== 'undefined') {
             token = localStorage.getItem("jwtToken");
         }
-        let response=await fetch(`http://89.40.2.200:3461/api/favorites/get-index?${params.toString()}`,{
+        let response=await fetch(`${API_URL}/api/favorites/get-index?${params.toString()}`,{
             method: 'GET',
             dataType: 'json',
             headers: {
@@ -69,7 +70,7 @@ export default function Wishlist() {
             }
             console.log(token)
             console.log(refreshToken)
-            let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
+            let response=await fetch(`${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
                 method: 'POST',
                 dataType: 'json',
                 headers: {
@@ -117,7 +118,7 @@ let removeFavorite = async (event) => {
     let remote_button=event.currentTarget;
     //e.preventDefault();
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/favorites/remove-favorite", {
+      const res = await fetch(`${API_URL}/api/favorites/remove-favorite`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -141,7 +142,7 @@ let removeFavorite = async (event) => {
                 token = localStorage.getItem("jwtToken");
                 refreshToken=localStorage.getItem("refreshToken");
             }
-              let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
+              let response=await fetch(`${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
                   method: 'POST',
                   dataType: 'json',
                   headers: {

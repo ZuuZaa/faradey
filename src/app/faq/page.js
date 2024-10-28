@@ -5,6 +5,7 @@ import '../../i18n';
 import Link from 'next/link';
 import { UilPhone, UilInfo, UilMap, UilEnvelope } from '@iconscout/react-unicons'
 import { Accordion, AccordionHeader, AccordionBody } from "@material-tailwind/react";
+import { API_URL } from '@/constants';
 
 function Icon({ id, open }) {
     return (
@@ -46,7 +47,9 @@ export default function Contact() {
   }
     const params = new URLSearchParams();
     params.append('LanguageID',lang_id);
-    const response = await fetch(`http://89.40.2.200:3461/api/about/get-index?${params.toString()}`);
+    const response = await fetch(
+      `${API_URL}/api/about/get-index?${params.toString()}`
+    );
     const data = await response.json();
     return data.output;
   }
@@ -82,7 +85,7 @@ export default function Contact() {
     let handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const res = await fetch("http://89.40.2.200:3461/api/about/add-message", {
+          const res = await fetch(`${API_URL}/api/about/add-message`, {
             method: "POST",
             headers: {
               'Accept': 'application/json, text/plain',

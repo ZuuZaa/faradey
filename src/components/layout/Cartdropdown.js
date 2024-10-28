@@ -89,7 +89,7 @@ import { API_URL } from '@/constants';
       }
       const quantity=event.currentTarget.previousSibling.value;
         try {
-          const res = await fetch("http://89.40.2.200:3461/api/cart/add-to-cart", {
+          const res = await fetch(`${API_URL}/api/cart/add-to-cart`, {
             method: "POST",
             headers: {
               'Accept': 'application/json, text/plain',
@@ -194,7 +194,7 @@ import { API_URL } from '@/constants';
           session_id=localStorage.getItem("sessionId");
       }
         try {
-          const res = await fetch("http://89.40.2.200:3461/api/cart/remove-from-cart", {
+          const res = await fetch(`${API_URL}/api/cart/remove-from-cart`, {
             method: "POST",
             headers: {
               'Accept': 'application/json, text/plain',
@@ -281,7 +281,7 @@ import { API_URL } from '@/constants';
       quantity++;
       console.log(quantity)
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+        const res = await fetch(`${API_URL}/api/cart/update-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -369,7 +369,7 @@ import { API_URL } from '@/constants';
       if(quantity>0)
       {
         try {
-          const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+          const res = await fetch(`${API_URL}/api/cart/update-cart`, {
             method: "POST",
             headers: {
               'Accept': 'application/json, text/plain',
@@ -431,7 +431,7 @@ import { API_URL } from '@/constants';
       }
       else{
         try {
-          const res = await fetch("http://89.40.2.200:3461/api/cart/remove-from-cart", {
+          const res = await fetch(`${API_URL}/api/cart/remove-from-cart`, {
             method: "POST",
             headers: {
               'Accept': 'application/json, text/plain',
@@ -532,7 +532,7 @@ import { API_URL } from '@/constants';
       }
       let update_button=event.currentTarget;
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+        const res = await fetch(`${API_URL}/api/cart/update-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',

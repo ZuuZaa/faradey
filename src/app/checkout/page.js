@@ -6,10 +6,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { UilLocationPoint, UilPhone, UilClock } from '@iconscout/react-unicons'
 import Map from './map/page'
+import { API_URL } from '@/constants';
 
 
 async function fetchData(){
-    const response = await fetch("http://89.40.2.200:3461/api/home/get-dillers-list");
+    const response = await fetch(`${API_URL}/api/home/get-dillers-list`);
     const data = await response.json();
     return data.output;
 }

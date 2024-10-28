@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {UilMultiply } from '@iconscout/react-unicons'
 import { useRouter } from 'next/navigation';
+import { API_URL } from '@/constants';
 
 
 
@@ -40,14 +41,17 @@ let lang_id='EN';
     const params = new URLSearchParams();
     params.append('SessionId', session_id);
     params.append('LanguageID',lang_id);
-      const response = await fetch(`http://89.40.2.200:3461/api/compare/get-index?${params.toString()}`,{
-        method: "GET",
-        headers: {
-          'Accept': 'application/json, text/plain',
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Authorization': 'Bearer ' + token
-        },
-  });
+      const response = await fetch(
+        `${API_URL}/api/compare/get-index?${params.toString()}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json, text/plain",
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       const data = await response.json();
       return data.output;
   }
@@ -128,7 +132,7 @@ let lang_id='EN';
       }
     
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/compare/remove-compare", {
+        const res = await fetch(`${API_URL}/api/compare/remove-compare`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',

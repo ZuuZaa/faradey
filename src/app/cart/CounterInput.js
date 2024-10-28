@@ -1,3 +1,4 @@
+import { API_URL } from '@/constants';
 import React, { useState } from 'react';
 import Swal  from 'sweetalert2';
 
@@ -21,7 +22,7 @@ const CounterInput = ({ initialValue , min , max, id  }) => {
             let total=price*quant
             event.currentTarget.parentElement.parentElement.nextSibling.textContent=total.toFixed(2)+"₼"
             try {
-                const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+                const res = await fetch(`${API_URL}/api/cart/update-cart`, {
                   method: "POST",
                   headers: {
                     'Accept': 'application/json, text/plain',
@@ -96,7 +97,7 @@ const CounterInput = ({ initialValue , min , max, id  }) => {
             let total=price*quant
             event.currentTarget.parentElement.parentElement.nextSibling.textContent=total.toFixed(2)+"₼"
             try {
-                const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+                const res = await fetch(`${API_URL}}/api/cart/update-cart`, {
                   method: "POST",
                   headers: {
                     'Accept': 'application/json, text/plain',
@@ -161,7 +162,7 @@ const CounterInput = ({ initialValue , min , max, id  }) => {
         let total=price*quant
         let prc_div=event.currentTarget.parentElement.parentElement.nextSibling
         try {
-            const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+            const res = await fetch(`${API_URL}/api/cart/update-cart`, {
               method: "POST",
               headers: {
                 'Accept': 'application/json, text/plain',

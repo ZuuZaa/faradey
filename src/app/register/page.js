@@ -7,6 +7,7 @@ import { UilPhone, UilInfo, UilMap, UilEnvelope } from '@iconscout/react-unicons
 import { Accordion, AccordionHeader, AccordionBody } from "@material-tailwind/react";
 import VerificationModal from './verification';
 import Swal  from 'sweetalert2';
+import { API_URL } from '@/constants';
 
 function Icon({ id, open }) {
     return (
@@ -44,7 +45,7 @@ export default function Register() {
   let handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/account/register", {
+      const res = await fetch(`${API_URL}/api/account/register`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',

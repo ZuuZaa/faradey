@@ -35,14 +35,17 @@ const MobileMenu = ({ items }) => {
       const params = new URLSearchParams();
       params.append('SessionId', session_id);
       params.append('LanguageID',lang_id);
-      const response = await fetch(`http://89.40.2.200:3461/api/layout/get-header?${params.toString()}`,{
+      const response = await fetch(
+        `${API_URL}/api/layout/get-header?${params.toString()}`,
+        {
           method: "GET",
           headers: {
-            'Accept': 'application/json, text/plain',
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': 'Bearer ' + token
-          }
-      });
+            Accept: "application/json, text/plain",
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       const data = await response.json();
       return data.output;
     }

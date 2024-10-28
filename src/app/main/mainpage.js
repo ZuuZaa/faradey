@@ -36,6 +36,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { getMainData } from "../_fetch";
+import { API_URL } from "@/constants";
 
 const MainPage = () => {
   const { t, i18n } = useTranslation();
@@ -66,7 +67,7 @@ const MainPage = () => {
     }
     try {
       const res = await fetch(
-        "http://89.40.2.200:3461/api/favorites/add-favorite",
+        `${API_URL}/api/favorites/add-favorite`,
         {
           method: "POST",
           headers: {
@@ -91,7 +92,7 @@ const MainPage = () => {
             refreshToken = localStorage.getItem("refreshToken");
           }
           let response = await fetch(
-            `http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,
+            `${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,
             {
               method: "POST",
               dataType: "json",
@@ -148,7 +149,7 @@ const MainPage = () => {
     //e.preventDefault();
     try {
       const res = await fetch(
-        "http://89.40.2.200:3461/api/favorites/remove-favorite",
+        `${API_URL}/api/favorites/remove-favorite`,
         {
           method: "POST",
           headers: {
@@ -175,7 +176,7 @@ const MainPage = () => {
             refreshToken = localStorage.getItem("refreshToken");
           }
           let response = await fetch(
-            `http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,
+            `${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,
             {
               method: "POST",
               dataType: "json",
@@ -242,7 +243,7 @@ const MainPage = () => {
     const quantity = event.currentTarget.previousSibling.value;
 
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/add-to-cart", {
+      const res = await fetch(`${API_URL}/api/cart/add-to-cart`, {
         method: "POST",
         headers: {
           Accept: "application/json, text/plain",
@@ -362,7 +363,7 @@ const MainPage = () => {
     }
     try {
       const res = await fetch(
-        "http://89.40.2.200:3461/api/cart/remove-from-cart",
+        `${API_URL}/api/cart/remove-from-cart`,
         {
           method: "POST",
           headers: {
@@ -485,7 +486,7 @@ const MainPage = () => {
     quantity++;
     //console.log(quantity)
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+      const res = await fetch(`${API_URL}/api/cart/update-cart`, {
         method: "POST",
         headers: {
           Accept: "application/json, text/plain",
@@ -579,7 +580,7 @@ const MainPage = () => {
     if (quantity > 0) {
       try {
         const res = await fetch(
-          "http://89.40.2.200:3461/api/cart/update-cart",
+          `${API_URL}/api/cart/update-cart`,
           {
             method: "POST",
             headers: {
@@ -652,7 +653,7 @@ const MainPage = () => {
     } else {
       try {
         const res = await fetch(
-          "http://89.40.2.200:3461/api/cart/remove-from-cart",
+          `${API_URL}/api/cart/remove-from-cart`,
           {
             method: "POST",
             headers: {
@@ -774,7 +775,7 @@ const MainPage = () => {
     }
     let update_button = event.currentTarget;
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+      const res = await fetch(`${API_URL}/api/cart/update-cart`, {
         method: "POST",
         headers: {
           Accept: "application/json, text/plain",
@@ -882,7 +883,7 @@ const MainPage = () => {
     }
     try {
       const res = await fetch(
-        "http://89.40.2.200:3461/api/compare/add-compare",
+        `${API_URL}/api/compare/add-compare`,
         {
           method: "POST",
           headers: {
@@ -925,7 +926,7 @@ const MainPage = () => {
     }
     try {
       const res = await fetch(
-        "http://89.40.2.200:3461/api/compare/remove-compare",
+        `${API_URL}/api/compare/remove-compare`,
         {
           method: "POST",
           headers: {

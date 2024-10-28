@@ -72,7 +72,7 @@ function About() {
     let handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const res = await fetch("http://89.40.2.200:3461/api/about/add-message", {
+          const res = await fetch(`${API_URL}/api/about/add-message`, {
             method: "POST",
             headers: {
               'Accept': 'application/json, text/plain',

@@ -9,6 +9,7 @@ import { UilEdit } from '@iconscout/react-unicons'
 import Menu from '../menu'
 
 import { Card, Typography } from "@material-tailwind/react";
+import { API_URL } from '@/constants';
 
 
 
@@ -40,7 +41,7 @@ export default function Project() {
             }
             const params = new URLSearchParams();
             params.append('LanguageID',lang_id);
-            let response=await fetch(`http://89.40.2.200:3461/api/projects/get-project-settings?${params.toString()}`,{
+            let response=await fetch(`${API_URL}/api/projects/get-project-settings?${params.toString()}`,{
                 method: 'GET',
                 dataType: 'json',
                 headers: {
@@ -69,7 +70,7 @@ export default function Project() {
                 }
                 console.log(token)
                 console.log(refreshToken)
-                let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
+                let response=await fetch(`${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
                     method: 'POST',
                     dataType: 'json',
                     headers: {
@@ -146,7 +147,7 @@ export default function Project() {
             token = localStorage.getItem("jwtToken");
         }
         try {
-          const res = await fetch("http://89.40.2.200:3461/api/projects/set-project-settings", {
+          const res = await fetch(`${API_URL}/api/projects/set-project-settings`, {
             method: "POST",
             headers: {
               'Accept': 'application/json, text/plain',

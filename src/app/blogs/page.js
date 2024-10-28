@@ -6,6 +6,7 @@ import '../../i18n'
 import Link from 'next/link';
 import Image from 'next/image';
 import { UilCalender, UilCommentAltLines,UilArrowRight} from '@iconscout/react-unicons'
+import { API_URL } from '@/constants';
 
 
 
@@ -34,7 +35,9 @@ export default function Blogs() {
         }
         const params = new URLSearchParams();
         params.append('LanguageID',lang_id);
-        const response = await fetch(`http://89.40.2.200:3461/api/blog/get-index?${params.toString()}`);
+        const response = await fetch(
+          `${API_URL}/api/blog/get-index?${params.toString()}`
+        );
         const data = await response.json();
         return data.output;
     }

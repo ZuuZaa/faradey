@@ -128,7 +128,7 @@ export default function Products() {
     }
     try {
       const res = await fetch(
-        "http://89.40.2.200:3461/api/favorites/add-favorite",
+        `${API_URL}/api/favorites/add-favorite`,
         {
           method: "POST",
           headers: {
@@ -153,7 +153,7 @@ export default function Products() {
             refreshToken = localStorage.getItem("refreshToken");
           }
           let response = await fetch(
-            `http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,
+            `${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,
             {
               method: "POST",
               dataType: "json",
@@ -206,7 +206,7 @@ export default function Products() {
     //e.preventDefault();
     try {
       const res = await fetch(
-        "http://89.40.2.200:3461/api/favorites/remove-favorite",
+        `${API_URL}/api/favorites/remove-favorite`,
         {
           method: "POST",
           headers: {
@@ -233,7 +233,7 @@ export default function Products() {
             refreshToken = localStorage.getItem("refreshToken");
           }
           let response = await fetch(
-            `http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,
+            `${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,
             {
               method: "POST",
               dataType: "json",
@@ -290,7 +290,7 @@ export default function Products() {
     }
     const quantity = event.currentTarget.previousSibling.value;
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/add-to-cart", {
+      const res = await fetch(`${API_URL}/api/cart/add-to-cart`, {
         method: "POST",
         headers: {
           Accept: "application/json, text/plain",
@@ -407,7 +407,7 @@ export default function Products() {
     }
     try {
       const res = await fetch(
-        "http://89.40.2.200:3461/api/cart/remove-from-cart",
+        `${API_URL}/api/cart/remove-from-cart`,
         {
           method: "POST",
           headers: {
@@ -500,7 +500,7 @@ export default function Products() {
     let quantity = event.currentTarget.parentElement.previousSibling.value;
     quantity++;
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+      const res = await fetch(`${API_URL}/api/cart/update-cart`, {
         method: "POST",
         headers: {
           Accept: "application/json, text/plain",
@@ -592,7 +592,7 @@ export default function Products() {
     if (quantity > 0) {
       try {
         const res = await fetch(
-          "http://89.40.2.200:3461/api/cart/update-cart",
+          `${API_URL}/api/cart/update-cart`,
           {
             method: "POST",
             headers: {
@@ -664,7 +664,7 @@ export default function Products() {
     } else {
       try {
         const res = await fetch(
-          "http://89.40.2.200:3461/api/cart/remove-from-cart",
+          `${API_URL}/api/cart/remove-from-cart`,
           {
             method: "POST",
             headers: {
@@ -779,7 +779,7 @@ export default function Products() {
     }
     let update_button = event.currentTarget;
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+      const res = await fetch(`${API_URL}/api/cart/update-cart`, {
         method: "POST",
         headers: {
           Accept: "application/json, text/plain",
@@ -885,7 +885,7 @@ export default function Products() {
     }
     try {
       const res = await fetch(
-        "http://89.40.2.200:3461/api/compare/add-compare",
+        `${API_URL}/api/compare/add-compare`,
         {
           method: "POST",
           headers: {
@@ -928,7 +928,7 @@ export default function Products() {
     }
     try {
       const res = await fetch(
-        "http://89.40.2.200:3461/api/compare/remove-compare",
+        `${API_URL}/api/compare/remove-compare`,
         {
           method: "POST",
           headers: {
@@ -964,7 +964,7 @@ export default function Products() {
     const session_id = localStorage.getItem("sessionId");
 
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/products/sorting", {
+      const res = await fetch(`${API_URL}/api/products/sorting`, {
         method: "POST",
         headers: {
           Accept: "application/json, text/plain",

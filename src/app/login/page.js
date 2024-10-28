@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { UilPhone, UilInfo, UilMap, UilEnvelope, UilEye, UilEyeSlash } from '@iconscout/react-unicons'
 import ChangePassModal from './change';
 import Swal  from 'sweetalert2';
+import { API_URL } from '@/constants';
 
 
 function Icon({ id, open }) {
@@ -56,7 +57,7 @@ export default function Login() {
         session_id=localStorage.getItem("sessionId");
     }
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/account/post-login", {
+      const res = await fetch(`${API_URL}/api/account/post-login`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -107,7 +108,7 @@ export default function Login() {
   let forgotPassword = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/account/forgot-password", {
+      const res = await fetch(`${API_URL}/api/account/forgot-password`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',

@@ -6,6 +6,7 @@ import '../../../i18n'
 import Menu from '../menu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { API_URL } from '@/constants';
 // import nextConnect from "next-connect";
 // import multer from "multer";
 
@@ -38,7 +39,7 @@ export default function Profile() {
             }
             const params = new URLSearchParams();
             params.append('LanguageID',lang_id);
-            let response=await fetch(`http://89.40.2.200:3461/api/profile/get-index?${params.toString()}`,{
+            let response=await fetch(`${API_URL}/api/profile/get-index?${params.toString()}`,{
                 method: 'GET',
                 dataType: 'json',
                 headers: {
@@ -64,7 +65,7 @@ export default function Profile() {
                     token = localStorage.getItem("jwtToken");
                     refreshToken=localStorage.getItem("refreshToken");
                 }
-                let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
+                let response=await fetch(`${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
                     method: 'POST',
                     dataType: 'json',
                     headers: {
@@ -242,7 +243,7 @@ export default function Profile() {
             console.log(pair[0]+ ': ' + pair[1]);
         }
         try {
-          const res = await fetch("http://89.40.2.200:3461/api/profile/edit-profile", {
+          const res = await fetch(`${API_URL}/api/profile/edit-profile`, {
             method: "POST",
             headers: {
               'Authorization': 'Bearer ' + token

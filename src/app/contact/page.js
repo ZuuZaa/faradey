@@ -3,6 +3,7 @@ import React, { useState ,useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import '../../i18n'
 import { UilLocationPoint, UilPhone, UilClock } from '@iconscout/react-unicons'
+import { API_URL } from '@/constants';
 
 export default function Contact() {
   const { t, i18n } = useTranslation();
@@ -29,7 +30,9 @@ async function fetchData(){
 }
   const params = new URLSearchParams();
   params.append('LanguageID',lang_id);
-  const response = await fetch(`http://89.40.2.200:3461/api/about/get-index?${params.toString()}`);
+  const response = await fetch(
+    `${API_URL}/api/about/get-index?${params.toString()}`
+  );
   const data = await response.json();
   return data.output;
 }
@@ -59,7 +62,7 @@ async function fetchData(){
     let handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const res = await fetch("http://89.40.2.200:3461/api/about/add-message", {
+          const res = await fetch(`${API_URL}/api/about/add-message`, {
             method: "POST",
             headers: {
               'Accept': 'application/json, text/plain',

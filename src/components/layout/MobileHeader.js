@@ -12,6 +12,7 @@ import { faFacebook, faInstagram, faGoogle, faLinkedin } from '@fortawesome/free
 import FlagEng from '../../../public/images/lang/uk.png'
 import FlagAz from '../../../public/images/lang/aze.png'
 import FlagRu from '../../../public/images/lang/rus.png'
+import { API_URL } from '@/constants';
 
     
 
@@ -45,14 +46,17 @@ export default function MobileHeader() {
     const params = new URLSearchParams();
     params.append('SessionId', session_id);
     params.append('LanguageID',lang_id);
-    const response = await fetch(`http://89.40.2.200:3461/api/layout/get-header?${params.toString()}`,{
+    const response = await fetch(
+      `${API_URL}/api/layout/get-header?${params.toString()}`,
+      {
         method: "GET",
         headers: {
-          'Accept': 'application/json, text/plain',
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Authorization': 'Bearer ' + token
-        }
-    });
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
     const data = await response.json();
     return data.output;
   }

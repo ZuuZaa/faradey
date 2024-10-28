@@ -14,6 +14,7 @@ import {faScaleBalanced } from '@fortawesome/free-solid-svg-icons'
 import {faScaleUnbalanced } from '@fortawesome/free-solid-svg-icons'
 import { Accordion, AccordionHeader, AccordionBody } from "@material-tailwind/react";
 import Swal  from 'sweetalert2';
+import { API_URL } from '@/constants';
 
 function Icon({ id, open }) {
   return (
@@ -72,7 +73,7 @@ export default function Search() {
     params.append('SessionId', session_id);
     params.append('LanguageID',lang_id);
     
-      const response=await fetch(`http://89.40.2.200:3461/api/search/get-index?${params.toString()}`,{
+      const response=await fetch(`${API_URL}/api/search/get-index?${params.toString()}`,{
         method: "GET",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -134,7 +135,7 @@ export default function Search() {
         token = localStorage.getItem("jwtToken");
     }
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/favorites/add-favorite", {
+      const res = await fetch(`${API_URL}/api/favorites/add-favorite`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -156,7 +157,7 @@ export default function Search() {
                 token = localStorage.getItem("jwtToken");
                 refreshToken=localStorage.getItem("refreshToken");
             }
-              let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
+              let response=await fetch(`${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
                   method: 'POST',
                   dataType: 'json',
                   headers: {
@@ -216,7 +217,7 @@ export default function Search() {
     }
     //e.preventDefault();
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/favorites/remove-favorite", {
+      const res = await fetch(`${API_URL}/api/favorites/remove-favorite`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -240,7 +241,7 @@ export default function Search() {
                 token = localStorage.getItem("jwtToken");
                 refreshToken=localStorage.getItem("refreshToken");
             }
-              let response=await fetch(`http://89.40.2.200:3461/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
+              let response=await fetch(`${API_URL}/api/account/refresh-token?userRefreshToken=${refreshToken}`,{
                   method: 'POST',
                   dataType: 'json',
                   headers: {
@@ -299,7 +300,7 @@ export default function Search() {
   }
     const quantity=event.currentTarget.previousSibling.value;
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/add-to-cart", {
+        const res = await fetch(`${API_URL}/api/cart/add-to-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -402,7 +403,7 @@ export default function Search() {
         session_id=localStorage.getItem("sessionId");
     }
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/remove-from-cart", {
+        const res = await fetch(`${API_URL}/api/cart/remove-from-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -486,7 +487,7 @@ export default function Search() {
     quantity++;
     console.log(quantity)
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+      const res = await fetch(`${API_URL}/api/cart/update-cart`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -573,7 +574,7 @@ export default function Search() {
     if(quantity>0)
     {
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+        const res = await fetch(`${API_URL}/api/cart/update-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -635,7 +636,7 @@ export default function Search() {
     }
     else{
       try {
-        const res = await fetch("http://89.40.2.200:3461/api/cart/remove-from-cart", {
+        const res = await fetch(`${API_URL}/api/cart/remove-from-cart`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -732,7 +733,7 @@ export default function Search() {
     }
     let update_button=event.currentTarget;
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/cart/update-cart", {
+      const res = await fetch(`${API_URL}/api/cart/update-cart`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -822,7 +823,7 @@ export default function Search() {
       session_id=localStorage.getItem("sessionId");
   }
   try {
-    const res = await fetch("http://89.40.2.200:3461/api/compare/add-compare", {
+    const res = await fetch(`${API_URL}/api/compare/add-compare`, {
       method: "POST",
       headers: {
         'Accept': 'application/json, text/plain',
@@ -866,7 +867,7 @@ export default function Search() {
         session_id=localStorage.getItem("sessionId");
     }
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/compare/remove-compare", {
+      const res = await fetch(`${API_URL}/api/compare/remove-compare`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',
@@ -904,7 +905,7 @@ export default function Search() {
     console.log(sorting)
     console.log(searchWord)
     try{
-      const res = await fetch("http://89.40.2.200:3461/api/search/sorting", {
+      const res = await fetch(`${API_URL}/api/search/sorting`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',
@@ -957,7 +958,7 @@ export default function Search() {
     const min_price=parseFloat(document.getElementById("min_price").value)
     const max_price=parseFloat(document.getElementById("max_price").value)
     try{
-      const res = await fetch("http://89.40.2.200:3461/api/search/filtering", {
+      const res = await fetch(`${API_URL}/api/search/filtering`, {
           method: "POST",
           headers: {
             'Accept': 'application/json, text/plain',

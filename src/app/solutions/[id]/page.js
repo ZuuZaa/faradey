@@ -21,6 +21,7 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Pagination, Navigation, HashNavigation } from 'swiper/modules';
+import { API_URL } from '@/constants';
 
 export default function Solutions() {
   const { t, i18n } = useTranslation();
@@ -49,13 +50,16 @@ export default function Solutions() {
     const params = new URLSearchParams();
     params.append('Id',id)
     params.append('LanguageID',lang_id);
-    const response = await fetch(`http://89.40.2.200:3461/api/solution/get-details?${params.toString()}`,{
+    const response = await fetch(
+      `${API_URL}/api/solution/get-details?${params.toString()}`,
+      {
         method: "GET",
         headers: {
-          'Accept': 'application/json, text/plain',
-          'Content-Type': 'application/json;charset=UTF-8'
-        }
-    })
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+      }
+    );
     const data = await response.json();
     return data.output;
 }

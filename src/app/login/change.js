@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import '../../i18n'
+import { API_URL } from '@/constants';
 
 const Modal = ({ isOpen, onClose, email, children }) => {
     
@@ -12,7 +13,7 @@ const Modal = ({ isOpen, onClose, email, children }) => {
   let changePass = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://89.40.2.200:3461/api/account/change-password", {
+      const res = await fetch(`${API_URL}/api/account/change-password`, {
         method: "POST",
         headers: {
           'Accept': 'application/json, text/plain',

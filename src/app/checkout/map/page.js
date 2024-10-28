@@ -1,9 +1,10 @@
 'use client'
 import {React, useEffect, useState} from 'react'
  import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { API_URL } from '@/constants';
 
  async function fetchData(){
-  const response = await fetch("http://89.40.2.200:3461/api/home/get-map-list");
+  const response = await fetch(`${API_URL}/api/home/get-map-list`);
   const data = await response.json();
   return data.output;
 }
