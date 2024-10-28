@@ -186,13 +186,13 @@ export default function Header() {
     fetchDataAsync();
   }, [lang_id]);
 
-  const totalQuantity = data.header.totalQuantity;
-  const islogin = data.isLogin;
-  const settings = data1.settings;
-  const mainCategories = data1.mainCategories;
-  const categories = data1.categories;
-  const subCategories = data1.subCategories;
-  const languages = data1.languages;
+  const totalQuantity = data?.header?.totalQuantity;
+  const islogin = data?.isLogin;
+  const settings = data1?.settings;
+  const mainCategories = data1?.mainCategories;
+  const categories = data1?.categories;
+  const subCategories = data1?.subCategories;
+  const languages = data1?.languages;
 
   let logout = async (event) => {
     // const token = localStorage.getItem("jwtToken");
@@ -489,8 +489,8 @@ export default function Header() {
                         <div className="nav-dropdown-2">
                           <ul className="nav-dropdown-ul">
                             {mainCategories
-                              .filter((main) => main.folder == 1)
-                              .map((main) => {
+                              ?.filter((main) => main.folder == 1)
+                              ?.map((main) => {
                                 return (
                                   <li
                                     className="nav-dropdown-item hasdropdown"
@@ -505,12 +505,12 @@ export default function Header() {
                                     <div className="nav-dropdown-2-1">
                                       <ul className="nav-dropdown-ul">
                                         {categories
-                                          .filter(
+                                          ?.filter(
                                             (cat) =>
                                               cat.mainId == main.id &&
                                               cat.folder == 1
                                           )
-                                          .map((cat) => {
+                                          ?.map((cat) => {
                                             return (
                                               <li
                                                 className="nav-dropdown-item hasdropdown"
@@ -526,11 +526,11 @@ export default function Header() {
                                                   <div className="">
                                                     <ul className="nav-dropdown-ul">
                                                       {subCategories
-                                                        .filter(
+                                                        ?.filter(
                                                           (sub) =>
                                                             sub.mainId == cat.id
                                                         )
-                                                        .map((sub) => {
+                                                        ?.map((sub) => {
                                                           return (
                                                             <li
                                                               className="nav-dropdown-item"
@@ -555,12 +555,12 @@ export default function Header() {
                                             );
                                           })}
                                         {categories
-                                          .filter(
+                                          ?.filter(
                                             (cat) =>
                                               cat.mainId == main.id &&
                                               cat.folder == 0
                                           )
-                                          .map((cat) => {
+                                          ?.map((cat) => {
                                             return (
                                               <li
                                                 className="nav-dropdown-item"
@@ -581,8 +581,8 @@ export default function Header() {
                                 );
                               })}
                             {mainCategories
-                              .filter((main) => main.folder == 0)
-                              .map((main) => {
+                              ?.filter((main) => main.folder == 0)
+                              ?.map((main) => {
                                 return (
                                   <li
                                     className="nav-dropdown-item"

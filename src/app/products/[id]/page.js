@@ -1286,7 +1286,7 @@ export default function Products() {
                       }
                       const images = [];
                       images.push(
-                        <Image
+                        <img
                           src={product.mainImage}
                           width="300"
                           height="400"
@@ -1296,7 +1296,7 @@ export default function Products() {
                       );
                       if (product.secondImage == null) {
                         images.push(
-                          <Image
+                          <img
                             src={product.mainImage}
                             width="300"
                             height="400"
@@ -1306,7 +1306,7 @@ export default function Products() {
                         );
                       } else {
                         images.push(
-                          <Image
+                          <img
                             src={product.secondImage}
                             width="300"
                             height="400"

@@ -142,7 +142,7 @@ function About() {
                 <div className='grid grid-cols-1 lg:grid-cols-3 gap-7'>
                     <div className='item p-9'>
                         <div className='icon'>
-                            <Image src={Vision} width={60} height={60} className='' alt='Icon'/>
+                            <img src={Vision} width={60} height={60} className='' alt='Icon'/>
                         </div>
                         <div className='title my-6 font-medium'>
                             <h2 className='text-2xl'>{t('Our Vision')}</h2>

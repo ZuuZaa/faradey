@@ -973,13 +973,12 @@ const MainPage = () => {
               return (
                 <SwiperSlide key={banner.id}>
                   <div className="slider-img">
-                    <Image
+                    <img
                       src={banner.image}
                       width={1200}
                       height={780}
                       className="object-cover mb-3 w-full"
                       alt="Slider Image"
-                      priority
                     />
                   </div>
                   <div className="content">
@@ -1054,7 +1053,7 @@ const MainPage = () => {
                     >
                       <div className="category-swiper-item-img-wrap w-full overflow-hidden">
                         {/* <Image src={CategoryImg1} width={300} height={400} className='blog-swiper-item-img object-cover w-full h-full mb-3' alt='Category'/> */}
-                        <Image
+                        <img
                           src={catimg.image}
                           width={300}
                           height={400}
@@ -1084,7 +1083,7 @@ const MainPage = () => {
                     key={offer.id}
                   >
                     <div className="banner2-image banner-image">
-                      <Image
+                      <img
                         src={offer.image}
                         className="infosecicon mx-auto"
                         alt="Icon"
@@ -1153,7 +1152,7 @@ const MainPage = () => {
 
                 const images = [];
                 images.push(
-                  <Image
+                  <img
                     src={product.mainImage}
                     width={300}
                     height={400}
@@ -1163,7 +1162,7 @@ const MainPage = () => {
                 );
                 if (product.secondImage == null) {
                   images.push(
-                    <Image
+                    <img
                       src={product.mainImage}
                       width={300}
                       height={400}
@@ -1173,7 +1172,7 @@ const MainPage = () => {
                   );
                 } else {
                   images.push(
-                    <Image
+                    <img
                       src={product.secondImage}
                       width={300}
                       height={400}
@@ -1442,7 +1441,7 @@ const MainPage = () => {
                     className="zoom-img partners-swiper-item mb-12 p-5 relative"
                     key={brand.id}
                   >
-                    <Image
+                    <img
                       src={brand.image}
                       width={300}
                       height={200}
@@ -1542,7 +1541,7 @@ const MainPage = () => {
                 }
                 const images = [];
                 images.push(
-                  <Image
+                  <img
                     src={product.mainImage}
                     width={300}
                     height={400}
@@ -1552,7 +1551,7 @@ const MainPage = () => {
                 );
                 if (product.secondImage == null) {
                   images.push(
-                    <Image
+                    <img
                       src={product.mainImage}
                       width={300}
                       height={400}
@@ -1562,7 +1561,7 @@ const MainPage = () => {
                   );
                 } else {
                   images.push(
-                    <Image
+                    <img
                       src={product.secondImage}
                       width={300}
                       height={400}
@@ -1852,7 +1851,7 @@ const MainPage = () => {
                       className=""
                     >
                       <div className="blog-swiper-item-img-wrap w-full overflow-hidden">
-                        <Image
+                        <img
                           src={blog.image}
                           width="300"
                           height="400"
@@ -1915,7 +1914,7 @@ const MainPage = () => {
                   >
                     <div className="grid-info-box text-center">
                       <div className="flex justify-center">
-                        <Image
+                        <img
                           src={feature.icon}
                           alt={feature.title}
                           width={50}
