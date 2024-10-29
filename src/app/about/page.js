@@ -17,23 +17,50 @@ import { API_URL } from '@/constants';
 function About() {
 
     const { t, i18n } = useTranslation();
-      let lang_id = "EN";
-      if (
-        typeof localStorage !== "undefined" &&
-        localStorage.getItem("langId") != null
-      ) {
-        lang_id = localStorage.getItem("langId");
+
+    const changeLanguage = async (event) => {
+      const lng = event.currentTarget.textContent;
+      console.log(lng);
+      await i18n.changeLanguage(lng);
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem("langId", lng);
       }
+      const fetchedData = await fetchData();
+      setData(fetchedData);
+    };
+    let lang_id = "EN";
     
-    async function fetchData(){
-        const params = new URLSearchParams();
-        params.append('LanguageID',lang_id);
+    async function fetchData() {
+      if (typeof localStorage !== "undefined") {
+        if (localStorage.getItem("langId") != null) {
+          lang_id = localStorage.getItem("langId");
+        }
+      }
+      const params = new URLSearchParams();
+      params.append("LanguageID", lang_id);
 
-        const response = await fetch(`${API_URL}/api/about/get-index?${params.toString()}`);
-        const data = await response.json();
-        return data.output;
+      const response = await fetch(
+        `${API_URL}/api/about/get-index?${params.toString()}`
+      );
+      const data = await response.json();
+      return data.output;
     }
+    useEffect(() => {
+      // Get all elements with the class name 'lang_btn'
+      const langBtns = document.getElementsByClassName("lang_btn");
 
+      // Add click event listener to each button
+      for (let i = 0; i < langBtns.length; i++) {
+        langBtns[i].addEventListener("click", changeLanguage);
+      }
+
+      // Cleanup function to remove event listeners when the component unmounts
+      return () => {
+        for (let i = 0; i < langBtns.length; i++) {
+          langBtns[i].removeEventListener("click", changeLanguage);
+        }
+      };
+    }, []);
   const [data, setData] = useState({ 
                                     team: [], 
                                     settings: [], 
@@ -43,17 +70,15 @@ function About() {
                                     testimonials: [] 
                                     });
     
-    useEffect(() => {
-        
-      async function fetchDataAsync() {
-        
-        const fetchedData = await fetchData();
-            setData(fetchedData);
-            await i18n.changeLanguage(lang_id);
-        }
-  
-      fetchDataAsync();
-    }, [lang_id]);
+   useEffect(() => {
+     async function fetchDataAsync() {
+       const fetchedData = await fetchData();
+       setData(fetchedData);
+       await i18n.changeLanguage(lang_id);
+     }
+
+     fetchDataAsync();
+   }, []);
 
       
     const team = data.team; 

@@ -20,7 +20,6 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faScaleBalanced } from "@fortawesome/free-solid-svg-icons";
 import { faScaleUnbalanced } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
-import noImage from "../../../public/images/not-available.jpg";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -35,28 +34,80 @@ import {
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { getMainData } from "../_fetch";
 import { API_URL } from "@/constants";
 
 const MainPage = () => {
   const { t, i18n } = useTranslation();
   const [data, setData] = useState({});
+
+  const changeLanguage = async (event) => {
+    const lng = event.currentTarget.textContent;
+    await i18n.changeLanguage(lng);
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem("langId", lng);
+    }
+    const fetchedData = await fetchData();
+    setData(fetchedData);
+  };
+
   let lang_id = "EN";
-  if (
-    typeof localStorage !== "undefined" &&
-    localStorage.getItem("langId") != null
-  ) {
-    lang_id = localStorage.getItem("langId");
+  async function fetchData() {
+    let token = "";
+    let session_id = "";
+
+    if (typeof localStorage !== "undefined") {
+      token = localStorage.getItem("jwtToken");
+      session_id = localStorage.getItem("sessionId");
+      if (localStorage.getItem("langId") != null) {
+        lang_id = localStorage.getItem("langId");
+      }
+    }
+    //changeLanguage(lang_id)
+    const params = new URLSearchParams();
+    params.append("SessionId", session_id);
+    params.append("LanguageID", lang_id);
+
+    const response = await fetch(
+      `${API_URL}/api/home/get-index?${params.toString()}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+
+    const data = await response.json();
+    return data.output;
   }
 
   useEffect(() => {
+    // Get all elements with the class name 'lang_btn'
+    const langBtns = document.getElementsByClassName("lang_btn");
+
+    // Add click event listener to each button
+    for (let i = 0; i < langBtns.length; i++) {
+      langBtns[i].addEventListener("click", changeLanguage);
+    }
+
+    // Cleanup function to remove event listeners when the component unmounts
+    return () => {
+      for (let i = 0; i < langBtns.length; i++) {
+        langBtns[i].removeEventListener("click", changeLanguage);
+      }
+    };
+  }, []);
+  useEffect(() => {
     async function fetchDataAsync() {
-      const fetchedData = await getMainData();
+      const fetchedData = await fetchData();
       setData(fetchedData);
+      console.log("test data", fetchedData);
       await i18n.changeLanguage(lang_id);
     }
     fetchDataAsync();
-  }, [lang_id]);
+  }, []);
 
   let addFavorite = async (event) => {
     let prodid = event.currentTarget.getAttribute("id");
@@ -66,20 +117,17 @@ const MainPage = () => {
       token = localStorage.getItem("jwtToken");
     }
     try {
-      const res = await fetch(
-        `${API_URL}/api/favorites/add-favorite`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            Id: prodid,
-          }),
-        }
-      );
+      const res = await fetch(`${API_URL}/api/favorites/add-favorite`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          Id: prodid,
+        }),
+      });
       const resJson = await res.json();
       //if (res.status === 200) {
       status = resJson.status;
@@ -148,20 +196,17 @@ const MainPage = () => {
     }
     //e.preventDefault();
     try {
-      const res = await fetch(
-        `${API_URL}/api/favorites/remove-favorite`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            Id: prodid,
-          }),
-        }
-      );
+      const res = await fetch(`${API_URL}/api/favorites/remove-favorite`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          Id: prodid,
+        }),
+      });
       const resJson = await res.json();
       //if (res.status === 200) {
 
@@ -362,21 +407,18 @@ const MainPage = () => {
       session_id = localStorage.getItem("sessionId");
     }
     try {
-      const res = await fetch(
-        `${API_URL}/api/cart/remove-from-cart`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            CartId: cartid,
-            SessionId: session_id,
-          }),
-        }
-      );
+      const res = await fetch(`${API_URL}/api/cart/remove-from-cart`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          CartId: cartid,
+          SessionId: session_id,
+        }),
+      });
 
       if (res.status === 200) {
         const resJson = await res.json();
@@ -579,22 +621,19 @@ const MainPage = () => {
     //console.log(quantity)
     if (quantity > 0) {
       try {
-        const res = await fetch(
-          `${API_URL}/api/cart/update-cart`,
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json, text/plain",
-              "Content-Type": "application/json;charset=UTF-8",
-              Authorization: "Bearer " + token,
-            },
-            body: JSON.stringify({
-              ProductId: prodid,
-              Quantity: quantity,
-              SessionId: session_id,
-            }),
-          }
-        );
+        const res = await fetch(`${API_URL}/api/cart/update-cart`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json, text/plain",
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({
+            ProductId: prodid,
+            Quantity: quantity,
+            SessionId: session_id,
+          }),
+        });
 
         if (res.status === 200) {
           const resJson = await res.json();
@@ -652,21 +691,18 @@ const MainPage = () => {
       }
     } else {
       try {
-        const res = await fetch(
-          `${API_URL}/api/cart/remove-from-cart`,
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json, text/plain",
-              "Content-Type": "application/json;charset=UTF-8",
-              Authorization: "Bearer " + token,
-            },
-            body: JSON.stringify({
-              CartId: cartid,
-              SessionId: session_id,
-            }),
-          }
-        );
+        const res = await fetch(`${API_URL}/api/cart/remove-from-cart`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json, text/plain",
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({
+            CartId: cartid,
+            SessionId: session_id,
+          }),
+        });
 
         if (res.status === 200) {
           const resJson = await res.json();
@@ -882,22 +918,19 @@ const MainPage = () => {
       session_id = localStorage.getItem("sessionId");
     }
     try {
-      const res = await fetch(
-        `${API_URL}/api/compare/add-compare`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            ProductId: prodid,
-            SessionId: session_id,
-            LanguageID: lang_id,
-          }),
-        }
-      );
+      const res = await fetch(`${API_URL}/api/compare/add-compare`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          ProductId: prodid,
+          SessionId: session_id,
+          LanguageID: lang_id,
+        }),
+      });
       const resJson = await res.json();
 
       if (resJson.output.message) {
@@ -925,21 +958,18 @@ const MainPage = () => {
       session_id = localStorage.getItem("sessionId");
     }
     try {
-      const res = await fetch(
-        `${API_URL}/api/compare/remove-compare`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            ProductId: prodid,
-            SessionId: session_id,
-          }),
-        }
-      );
+      const res = await fetch(`${API_URL}/api/compare/remove-compare`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          ProductId: prodid,
+          SessionId: session_id,
+        }),
+      });
 
       if (res.status === 200) {
         const resJson = await res.json();
@@ -1097,7 +1127,7 @@ const MainPage = () => {
                         href="/categories"
                         className=" link-design1 font-bold inline-block rounded-full"
                       >
-                        Shop Now salam
+                        Shop Now
                       </Link>
                     </div>
                   </div>

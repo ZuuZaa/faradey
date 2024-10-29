@@ -56,22 +56,29 @@ function Icon({ id, open }) {
 export default function Products() {
   const { t, i18n } = useTranslation();
 
+  const changeLanguage = async (event) => {
+    const lng = event.currentTarget.textContent;
+    await i18n.changeLanguage(lng);
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem("langId", lng);
+    }
+    const fetchedData = await fetchData();
+    setData(fetchedData);
+  };
   const pathname = useParams();
   const id = pathname.id;
-
-  let token = "";
-  let session_id = "";
   let lang_id = "EN";
 
-  if (typeof localStorage !== "undefined") {
-    token = localStorage.getItem("jwtToken");
-    session_id = localStorage.getItem("sessionId");
-    if (localStorage.getItem("langId") != null) {
-      lang_id = localStorage.getItem("langId");
-    }
-  }
-
   async function fetchData() {
+    let token = "";
+    let session_id = "";
+    if (typeof localStorage !== "undefined") {
+      token = localStorage.getItem("jwtToken");
+      session_id = localStorage.getItem("sessionId");
+      if (localStorage.getItem("langId") != null) {
+        lang_id = localStorage.getItem("langId");
+      }
+    }
     const params = new URLSearchParams();
     params.append("TypeId", id);
     params.append("SessionId", session_id);
@@ -91,6 +98,7 @@ export default function Products() {
     const data = await response.json();
     return data.output;
   }
+
   const [open, setOpen] = useState(0);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);

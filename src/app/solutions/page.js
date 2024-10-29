@@ -106,9 +106,9 @@ export default function Solutions() {
                                 {
                                     solutions.map(solution=>{
                                         return(
-                                        <div className='solution-items'>
-                                            <div className='img relative'>
-                                                <img src={solution.image} width={400} height={300} className='w-full mx-auto object-cover max-w-full' alt='Post'></img>
+                                        <div className='solution-items flex flex-col'>
+                                            <div className='img relative flex-grow'>
+                                                <img src={solution.image} width={400} height={300} className='w-full min-h-full mx-auto object-cover max-w-full' alt='Post'></img>
                                                 {/* <Image src={BlogImg1} width={400} height={300} className='w-full mx-auto object-cover max-w-full' alt='Post'/> */}
                                                 {/* <div className='solution-items-tag'>
                                                     <span className='inline-block'>{solution.title}</span>
