@@ -30,10 +30,9 @@ export default function Footer() {
     typeof localStorage !== "undefined" &&
     localStorage.getItem("langId") != null
   ) {
-      lang_id = localStorage.getItem("langId");
+    lang_id = localStorage.getItem("langId");
   }
   async function fetchData() {
-
     const params = new URLSearchParams();
     params.append("LanguageID", lang_id);
     const response = await fetch(
@@ -157,22 +156,22 @@ export default function Footer() {
               </h5>
               <ul className="footer-col-ul">
                 <li>
-                  <Link href="#" target="_blank">
+                  <Link href="/info/0" target="_blank">
                     {t("Privacy&Policy")}
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" target="_blank">
+                  <Link href="/info/1" target="_blank">
                     {t("Refund Policy")}
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" target="_blank">
+                  <Link href="info/2" target="_blank">
                     {t("Delivery Information")}
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" target="_blank">
+                  <Link href="info/3" target="_blank">
                     {t("Terms&Conditions")}
                   </Link>
                 </li>

@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${roboto.className} flex flex-col min-h-screen`}>
         <Header />
-        <div className="flex-1">{children}</div>
+        <div className="main-content flex-1">{children}</div>
         <Footer />
       </body>
     </html>

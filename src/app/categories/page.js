@@ -228,50 +228,74 @@ const goToPage = (pageNumber) => {
                                     
                                     {
                                         mainCategories.map(main=>{
-                                            return(
-                                                <div>
-                                                    <h3 className='hover-red mt-6 text-lg font-semibold capitalize flex items-center justify-between cf-categories-list-item'>
-                                                        <Link href=''>{main.name}</Link> 
-                                                        {
-                                                            main.folder!=0&&(<span className='cursor-pointer' onClick={() => toggleActive(main.id)}>
-                                                            {activeIndex === main.id ? <FaMinus /> : <FaPlus />}
-                                                            </span>)
-                                                        }
-                                                        
-                                                    </h3>
-                                                    <div className={`pl-6 ${activeIndex === main.id ? 'open' : ''}`}>
-                                                    {
-                                                            categories.filter(cat=>cat.mainId==main.id).map(cat=>{
-                                                                return(
-                                                                    <Link href={"/category/" + cat.id}><h6 className='hover-red mt-2 font-medium hover:underline capitalize'>{cat.name}</h6></Link>
-                                                                   
-
-                                                                )
-                                                                
-
-                                                            })
-                                                        }
-                                                    </div>
+                                            console.log(main,"main")
+                                            return (
+                                              <div>
+                                                <h3 className="hover-red mt-6 text-lg font-semibold capitalize flex items-center justify-between cf-categories-list-item">
+                                                  <Link href={`/category/${main.id}`}>
+                                                    {main.name}
+                                                  </Link>
+                                                  {main.folder != 0 && (
+                                                    <span
+                                                      className="cursor-pointer"
+                                                      onClick={() =>
+                                                        toggleActive(main.id)
+                                                      }
+                                                    >
+                                                      {activeIndex ===
+                                                      main.id ? (
+                                                        <FaMinus />
+                                                      ) : (
+                                                        <FaPlus />
+                                                      )}
+                                                    </span>
+                                                  )}
+                                                </h3>
+                                                <div
+                                                  className={`pl-6 ${
+                                                    activeIndex === main.id
+                                                      ? "open"
+                                                      : ""
+                                                  }`}
+                                                >
+                                                  {categories
+                                                    .filter(
+                                                      (cat) =>
+                                                        cat.mainId == main.id
+                                                    )
+                                                    .map((cat) => {
+                                                      return (
+                                                        <Link
+                                                          href={
+                                                            "/category/" +
+                                                            cat.id
+                                                          }
+                                                        >
+                                                          <h6 className="hover-red mt-2 font-medium hover:underline capitalize">
+                                                            {cat.name}
+                                                          </h6>
+                                                        </Link>
+                                                      );
+                                                    })}
                                                 </div>
-                                                // <div class='active'>
-                                                //     <Link href={"/category/" + main.id}><h3 className='hover-red mt-6 text-lg font-semibold capitalize'>{main.name}</h3></Link>
-                                                //     {
-                                                //             categories.filter(cat=>cat.mainId==main.id).map(cat=>{
-                                                //                 return(
-                                                //                     <div className='pl-6'>
-                                                //                         <Link href={"/category/" + cat.id}><h6 className='hover-red mt-2 font-medium hover:underline capitalize'>{cat.name}</h6></Link>
-                                                                        
-                                                //                     </div>
+                                              </div>
+                                              // <div class='active'>
+                                              //     <Link href={"/category/" + main.id}><h3 className='hover-red mt-6 text-lg font-semibold capitalize'>{main.name}</h3></Link>
+                                              //     {
+                                              //             categories.filter(cat=>cat.mainId==main.id).map(cat=>{
+                                              //                 return(
+                                              //                     <div className='pl-6'>
+                                              //                         <Link href={"/category/" + cat.id}><h6 className='hover-red mt-2 font-medium hover:underline capitalize'>{cat.name}</h6></Link>
 
-                                                //                 )
-                                                                
+                                              //                     </div>
 
-                                                //             })
-                                                //         }
+                                              //                 )
 
-                                                // </div>
+                                              //             })
+                                              //         }
 
-                                            )
+                                              // </div>
+                                            );
                                         })
                                     }
                                 </div>

@@ -159,14 +159,27 @@ li.nav-item.hidden{display: none;}
    -ms-transform: translate(50%,50%);
    -o-transform: translate(50%,50%);
 }
-.scrolled.header-section-2{ 
+.header-section-2{ 
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   background-color: white;z-index: 2;
+}
+
+.scrolled.header-section-2 {
   box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);}
-@media screen and (min-width:1024px){ .header-extra-mobile-menu-btn{display: none;} }
+
+
+  .main-content {padding-top: 205px;}
+@media screen and (min-width:1024px){ .header-extra-mobile-menu-btn{display: none;}
+ }
+@media screen and (max-width:1024px){
+.main-content {padding-top: 90px;}
+ }
+@media screen and (max-width:991px){
+.main-content {padding-top: 80px;}
+ }
 .nav-dropdown-ul .nav-item{
   font-size: 15px;
   text-transform: uppercase;
@@ -1104,8 +1117,8 @@ min-width: max-content;
 width: max-content;border: 1px solid #f4f4f4;
 }
 nav.scrolled{
-position: fixed;
-left: 0;right: 0;top: 0;z-index: 20;background-color: white;
+/* position: fixed;
+left: 0;right: 0;top: 0;z-index: 20;background-color: white; */
 }
 nav.scrolled div.nav-dropdown{
 max-height: calc(100vh - 62px);
