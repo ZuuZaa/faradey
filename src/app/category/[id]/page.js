@@ -101,7 +101,6 @@ export default function Category() {
   useEffect(() => {
     async function fetchDataAsync() {
     const fetchedData = await fetchData();
-    console.log("test",fetchedData)
       setData(fetchedData);
       setCategoryName(fetchedData.categoryName[0].categoryTree)
       setCategoryId(fetchedData.categoryName[0].id)

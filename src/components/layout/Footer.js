@@ -22,6 +22,7 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { API_URL } from "@/constants";
+import { SOSIAL_LINK_ICONS } from "@/constants";
 
 export default function Footer() {
   const { t, i18n } = useTranslation();
@@ -50,6 +51,7 @@ export default function Footer() {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
       setData(fetchedData);
+      console.log("footer", fetchedData);
       await i18n.changeLanguage(lang_id);
     }
 
@@ -110,6 +112,23 @@ export default function Footer() {
                     </li>
                   </>
                 )}
+              </ul>
+              <ul className="flex gap-2 mt-2">
+                {data.socialMedia.length > 0 &&
+                  data.socialMedia.map((item) => (
+                    <>
+                      {item.link && (
+                        <li key={item.id} className="footer-sosial-link">
+                          <Link href={item.link}>
+                            <FontAwesomeIcon
+                              icon={SOSIAL_LINK_ICONS[item.name.toUpperCase()]}
+                            //  style={{  }}
+                            />
+                          </Link>
+                        </li>
+                      )}
+                    </>
+                  ))}
               </ul>
             </div>
             <div className="footer-col mb-5 sm:mb-7 lg:mb-10">
