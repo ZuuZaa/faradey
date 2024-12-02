@@ -1,0 +1,38 @@
+.pagination .prev,
+.pagination .next,
+.pagination .page-btn {
+  font-size: 12px;
+  line-height: 14.52px;
+  width: 38px;
+  height: 38px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+
+  & {
+    background-color: #f0f0f0;
+  }
+}
+.pagination .prev:hover,
+.pagination .next:hover,
+.pagination .page-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination .page-btn.active {
+  background-color: var(--primary-theme-color);
+  color: #fff;
+  border-color: var(--primary-theme-color);
+}
+.pagination .page-btn.active:hover {
+  background-color: #f0f0f0;
+  color: var(--primary-theme-color);
+  border-color: var(--primary-theme-color);
+}
+
+.pagination .prev:disabled,
+.pagination .next:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
