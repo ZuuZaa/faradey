@@ -51,7 +51,6 @@ export default function Footer() {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
       setData(fetchedData);
-      console.log("footer", fetchedData);
       await i18n.changeLanguage(lang_id);
     }
 
