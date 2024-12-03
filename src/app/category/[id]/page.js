@@ -37,7 +37,6 @@ import { API_URL } from "@/constants";
 import Pagination from "@/components/pagination";
 import { getNumberFromString } from "@/helpers/get-number-from-string";
 
-
 function Icon({ id, open }) {
   return (
     <svg
@@ -62,10 +61,20 @@ function Icon({ id, open }) {
 export default function Category() {
   const { t, i18n } = useTranslation();
 
+  const [data, setData] = useState({
+    products: [],
+    categoryName: [],
+    attributeNames: [],
+    attributeValues: [],
+    mainCategory: [],
+    subCategory: [],
+    mainCategories: [],
+    subCategories: [],
+    contractors: [],
+  });
+
   // Pagination
-  const [itemsPerPage, setItemsPerPage] = useState(24); // Adjust as needed
   const [activePage, setActivePage] = useState(1); // Track active page
-  const [currentPage, setCurrentPage] = useState(1); // Track current page
 
   const setPages = (page) => setActivePage(page);
 
@@ -111,25 +120,13 @@ export default function Category() {
         // }),
       }
     );
-    
+
     const data = await response.json();
     return data.output;
   }
   const [open, setOpen] = useState(0);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
-
-  const [data, setData] = useState({
-    products: [],
-    categoryName: [],
-    attributeNames: [],
-    attributeValues: [],
-    mainCategory: [],
-    subCategory: [],
-    mainCategories: [],
-    subCategories: [],
-    contractors: [],
-  });
 
   const [cat_name, setCategoryName] = useState("");
   const [cat_id, setCategoryId] = useState("");
@@ -1060,82 +1057,7 @@ export default function Category() {
       console.log(err);
     }
   };
-  // const data = data;
-  // Filter Search - Table
-  //const [filter, setFilter] = useState('');
 
-  // Function to filter and paginate data
-  const getFilteredAndPaginatedData = () => {
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const filteredData = products.flatMap((item) => item);
-    // .filter((button) => button.name.toLowerCase().includes(filter.toLowerCase()));
-
-    // Pagination logic with ellipses
-    const paginateWithDots = (currentPage, totalPages, adjacentPages) => {
-      const pages = [];
-      let ellipsesShown = false;
-
-      // Left ellipses
-      if (currentPage > adjacentPages + 1) {
-        pages.push(1);
-        if (currentPage > adjacentPages + 2) {
-          pages.push("...");
-        }
-        ellipsesShown = true;
-      }
-
-      // Pages within range
-      for (
-        let page = Math.max(1, currentPage - adjacentPages);
-        page <= Math.min(totalPages, currentPage + adjacentPages);
-        page++
-      ) {
-        pages.push(page);
-      }
-
-      // Right ellipses
-      if (currentPage < totalPages - adjacentPages) {
-        if (!ellipsesShown) {
-          pages.push("...");
-        }
-        if (currentPage < totalPages - adjacentPages - 1) {
-          pages.push(totalPages);
-        }
-      }
-
-      return pages;
-    };
-
-    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-    const paginatedPages = paginateWithDots(currentPage, totalPages, 2); // Adjust adjacent pages as needed
-
-    const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
-
-    return { currentItems, paginatedPages };
-  };
-
-  const { currentItems, paginatedPages } = getFilteredAndPaginatedData();
-
-  const goToNextPage = () => {
-    setCurrentPage(currentPage + 1);
-    setActivePage(currentPage + 1);
-    window.scrollTo(0, 0);
-  };
-  const goToPreviousPage = () => {
-    setCurrentPage(currentPage - 1);
-    setActivePage(currentPage - 1);
-    window.scrollTo(0, 0);
-  };
-  const goToPage = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    setActivePage(pageNumber);
-    window.scrollTo(0, 0);
-  };
-  const [activeIndex, setActiveIndex] = useState(null);
-  const toggleActive = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
   return (
     <main>
       {/* Breadcrumb */}
@@ -1411,9 +1333,9 @@ export default function Category() {
               </div>
 
               <div className="cp-main-products">
-                {currentItems.length > 0 ? (
+                {data?.products?.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                    {currentItems.map((product) => {
+                    {data.products.map((product) => {
                       const items = [];
                       for (let i = 1; i <= 5; i++) {
                         if (product.starCount >= i) {

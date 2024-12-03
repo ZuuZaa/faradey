@@ -118,7 +118,7 @@ export default function Footer() {
                     <>
                       {item.link && (
                         <li key={item.id} className="footer-sosial-link">
-                          <Link href={item.link}>
+                          <Link href={item.link} target="_about">
                             <FontAwesomeIcon
                               icon={SOSIAL_LINK_ICONS[item.name.toUpperCase()]}
                             //  style={{  }}
