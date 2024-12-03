@@ -34,6 +34,7 @@ import Products from "@/app/products/[id]/page";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { API_URL } from "@/constants";
+import Pagination from "@/components/pagination";
 
 function Icon({ id, open }) {
   return (
@@ -60,9 +61,11 @@ export default function Category() {
   const { t, i18n } = useTranslation();
 
   // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(24); // Adjust as needed
   const [activePage, setActivePage] = useState(1); // Track active page
+  const [currentPage, setCurrentPage] = useState(1); // Track current page
+
+  const setPages = (page) => setActivePage(page);
 
   const changeLanguage = async (event) => {
     const lng = event.currentTarget.textContent;
@@ -90,22 +93,23 @@ export default function Category() {
     params.append("Id", id);
     params.append("SessionId", session_id);
     params.append("LanguageID", lang_id);
+    params.append("Page", activePage);
 
-    const response = await fetch(`${API_URL}/api/category/pagination`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json, text/plain",
-        "Content-Type": "application/json;charset=UTF-8",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({
-        Id: id,
-        SessionId: session_id,
-        LanguageID: lang_id,
-        Page: 1,
-      }),
-    });
-
+    const response = await fetch(
+      `${API_URL}/api/category/get-index?${params.toString()}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+        // body: JSON.stringify({
+        //   Page: 2,
+        // }),
+      }
+    );
+    
     const data = await response.json();
     return data.output;
   }
@@ -138,7 +142,7 @@ export default function Category() {
   }
   useEffect(() => {
     fetchDataAsync();
-  }, []);
+  }, [activePage]);
   useEffect(() => {
     // Get all elements with the class name 'lang_btn'
     const langBtns = document.getElementsByClassName("lang_btn");
@@ -1221,7 +1225,7 @@ export default function Category() {
                                      <span className='border-dotted border-b border-b-stone-600 cursor-pointer hover-red'>Reset</span>
                                   </div> */}
                   <div className="category-filters-boxes">
-                    {contractors?.map((contra) => {
+                    {contractors.map((contra) => {
                       return (
                         <div className="flex items-center gap-1">
                           <label
@@ -1653,38 +1657,43 @@ export default function Category() {
                 )}
               </div>
               {data?.pageCount > 1 && (
-                <div className="pagination-wrapper">
-                  <button
-                    onClick={goToPreviousPage}
-                    disabled={currentPage === 1}
-                  >
-                    <UisAngleLeft size="18" color="#ffc400" />
-                  </button>
-                  {paginatedPages.map((page, index) => (
-                    <span key={index}>
-                      {page === "..." ? (
-                        <span>...</span>
-                      ) : (
-                        <button
-                          onClick={() => goToPage(page)}
-                          className={
-                            activePage === page ? "active_pag_btn" : ""
-                          }
-                        >
-                          {page}
-                        </button>
-                      )}
-                    </span>
-                  ))}
-                  <button
-                    onClick={goToNextPage}
-                    disabled={
-                      currentPage === Math.ceil(products.length / itemsPerPage)
-                    }
-                  >
-                    <UisAngleRight size="18" color="#ffc400" />
-                  </button>
-                </div>
+                <Pagination
+                  totalPages={data.pageCount}
+                  activePage={activePage}
+                  setPages={setPages}
+                />
+                // <div className="pagination-wrapper">
+                //   <button
+                //     onClick={goToPreviousPage}
+                //     disabled={currentPage === 1}
+                //   >
+                //     <UisAngleLeft size="18" color="#ffc400" />
+                //   </button>
+                //   {paginatedPages.map((page, index) => (
+                //     <span key={index}>
+                //       {page === "..." ? (
+                //         <span>...</span>
+                //       ) : (
+                //         <button
+                //           onClick={() => goToPage(page)}
+                //           className={
+                //             activePage === page ? "active_pag_btn" : ""
+                //           }
+                //         >
+                //           {page}
+                //         </button>
+                //       )}
+                //     </span>
+                //   ))}
+                //   <button
+                //     onClick={goToNextPage}
+                //     disabled={
+                //       currentPage === Math.ceil(products.length / itemsPerPage)
+                //     }
+                //   >
+                //     <UisAngleRight size="18" color="#ffc400" />
+                //   </button>
+                // </div>
               )}
             </div>
           </div>

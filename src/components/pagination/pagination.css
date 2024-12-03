@@ -9,27 +9,24 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
-
-  & {
-    background-color: #f0f0f0;
-  }
 }
 .pagination .prev:hover,
 .pagination .next:hover,
-.pagination .page-btn:hover {
+.pagination .page-btn:hover,
+.pagination .page-btn.active:hover {
+  color: #000;
   background-color: #f0f0f0;
 }
 
 .pagination .page-btn.active {
-  background-color: var(--primary-theme-color);
-  color: #fff;
-  border-color: var(--primary-theme-color);
+  color: #f0f0f0;
+  background-color: #666;
 }
-.pagination .page-btn.active:hover {
-  background-color: #f0f0f0;
-  color: var(--primary-theme-color);
-  border-color: var(--primary-theme-color);
-}
+/* .pagination .page-btn:hover {
+  color: #f0f0f0;
+  background-color: #c33212;
+  border-color: #c33212;
+} */
 
 .pagination .prev:disabled,
 .pagination .next:disabled {
